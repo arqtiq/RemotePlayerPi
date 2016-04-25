@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1461096198 source:/home/raspi/tools/Tests/TestCpp/main.cpp
+	<iostream>
+	"RemotePlayer.h"
+
+1460409934 /home/raspi/tools/Tests/TestCpp/include/RemotePlayer.h
+	"SDL/SDL.h"
+	"SDL/SDL_mixer.h"
+	"Logger.h"
+
+1460409223 /home/raspi/tools/Tests/TestCpp/include/Logger.h
+	<iostream>
+
+1460409262 source:/home/raspi/tools/Tests/TestCpp/src/Logger.cpp
+	"Logger.h"
+
+1461170555 source:/home/raspi/tools/Tests/TestCpp/src/RemotePlayer.cpp
+	"RemotePlayer.h"
+
