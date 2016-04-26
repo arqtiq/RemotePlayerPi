@@ -17,3 +17,51 @@
 1461170555 source:/home/raspi/tools/Tests/TestCpp/src/RemotePlayer.cpp
 	"RemotePlayer.h"
 
+1460409262 source:/home/raspi/remotePlayerPiServer/src/Logger.cpp
+	"Logger.h"
+
+1460409223 /home/raspi/remotePlayerPiServer/include/Logger.h
+	<iostream>
+
+1461696736 source:/home/raspi/remotePlayerPiServer/main.cpp
+	<iostream>
+	"RemotePlayer.h"
+
+1461698050 /home/raspi/remotePlayerPiServer/include/RemotePlayer.h
+	"SDL/SDL.h"
+	"SDL/SDL_mixer.h"
+	"SDL/SDL_net.h"
+	"Logger.h"
+	"mData.h"
+	"mAudio.h"
+	"mCommand.h"
+	"mNet.h"
+
+1461696736 /home/raspi/remotePlayerPiServer/include/mData.h
+	"dirent.h"
+	"Logger.h"
+
+1461696736 /home/raspi/remotePlayerPiServer/include/mAudio.h
+	"Logger.h"
+
+1461696736 /home/raspi/remotePlayerPiServer/include/mCommand.h
+	"Logger.h"
+
+1461696736 /home/raspi/remotePlayerPiServer/include/mNet.h
+	"Logger.h"
+
+1461696736 source:/home/raspi/remotePlayerPiServer/src/mAudio.cpp
+	"mAudio.h"
+
+1461696736 source:/home/raspi/remotePlayerPiServer/src/mCommand.cpp
+	"mCommand.h"
+
+1461696736 source:/home/raspi/remotePlayerPiServer/src/mData.cpp
+	"mData.h"
+
+1461696736 source:/home/raspi/remotePlayerPiServer/src/mNet.cpp
+	"mNet.h"
+
+1461698776 source:/home/raspi/remotePlayerPiServer/src/RemotePlayer.cpp
+	"RemotePlayer.h"
+

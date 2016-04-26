@@ -6,16 +6,20 @@
 #include "SDL/SDL_net.h"
 
 #include "Logger.h"
+#include "mData.h"
+#include "mAudio.h"
+#include "mCommand.h"
+#include "mNet.h"
 
 class RemotePlayer
 {
     public:
         static RemotePlayer* Instance();
         Logger logger;
-        mAudio m_audio;
-        mData m_data;
-        mnet m_net;
-        mCommand m_command;
+        mAudio* m_audio;
+        mData* m_data;
+        mNet* m_net;
+        mCommand* m_command;
 
         bool Init();
         void Update();

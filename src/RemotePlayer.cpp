@@ -13,12 +13,12 @@ RemotePlayer* RemotePlayer::Instance()
 bool RemotePlayer::Init()
 {
     logger = Logger();
-    m_audio = mAudio();
-    m_net = mNet();
-    m_command = mCommand();
-    m_data = mData();
+    m_audio = mAudio::Instance();
+    m_net = mNet::Instance();
+    m_command = mCommand::Instance();
+    m_data = mData::Instance();
 
-    return InitSDL() && InitMixer();
+    return InitSDL() && InitMixer() && InitNet();
 }
 
 bool RemotePlayer::InitSDL()
@@ -47,8 +47,8 @@ bool RemotePlayer::InitNet()
 
 void RemotePlayer::Update()
 {
-    m_audio.Update();
-    m_net.Update();
-    m_command.Update();
-    m_data.Update();
+    m_audio->Update();
+    m_net->Update();
+    m_command->Update();
+    m_data->Update();
 }

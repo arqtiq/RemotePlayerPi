@@ -4,15 +4,27 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
+	if(argc == 1)
+	{
+		cout << "No init dir arg set; Can't start !" << endl;
+		return 0;
+	}
+	else if(argc == 2)
+	{
+		cout << "Using " << argv[1] << " init dir" << endl << endl;
+	}
+
     if(!RemotePlayer::Instance()->Init())
     {
-        std::cout << "Error Initializing RemotePlayer" << std::endl;
+        cout << "Error Initializing RemotePlayer" << endl;
         return 0;
     }
     else
-        std::cout << "RemotePlayer Initialized !" << std::endl;
+	{
+        cout << "RemotePlayer Initialized !" << endl;
+	}
 
     while(true)
     {
