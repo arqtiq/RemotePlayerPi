@@ -18,6 +18,7 @@
 				<Linker>
 					<Add library="SDL" />
 					<Add library="SDL_mixer" />
+					<Add library="SDL_net" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -38,9 +39,17 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/mData.h" />
+		<Unit filename="include/mAudio.h" />
+		<Unit filename="include/mNet.h" />
+		<Unit filename="include/mCommand.h" />
 		<Unit filename="include/Logger.h" />
 		<Unit filename="include/RemotePlayer.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/mData.cpp" />
+		<Unit filename="src/mAudio.cpp" />
+		<Unit filename="src/mNet.cpp" />
+		<Unit filename="src/mCommand.cpp" />
 		<Unit filename="src/Logger.cpp" />
 		<Unit filename="src/RemotePlayer.cpp" />
 		<Extensions>
