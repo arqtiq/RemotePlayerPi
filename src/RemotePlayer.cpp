@@ -45,6 +45,13 @@ bool RemotePlayer::InitNet()
     return r == -1 ? false : true;
 }
 
+void RemotePlayer::Quit()
+{
+	SDLNet_Quit();
+	Mix_Quit();
+	SDL_Quit();
+}
+
 void RemotePlayer::Update()
 {
     m_audio->Update();

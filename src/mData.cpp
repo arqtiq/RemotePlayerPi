@@ -10,6 +10,16 @@ mData* mData::Instance()
     return _instance;
 }
 
+void mData::SetCurrentPath(std::string path)
+{
+	this->path = path;
+}
+
+std::string mData::GetCurrentPath()
+{
+	return this->path;
+}
+
 void mData::Update()
 {
 	

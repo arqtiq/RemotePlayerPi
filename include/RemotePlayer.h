@@ -22,6 +22,7 @@ class RemotePlayer
         mCommand* m_command;
 
         bool Init();
+		void Quit();
         void Update();
     protected:
     private:

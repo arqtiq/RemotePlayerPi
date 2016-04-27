@@ -10,11 +10,13 @@ class mData
     public:
         static mData* Instance();
         void Update();
-        void SetCurrentPath();
+        void SetCurrentPath(std::string path);
+		std::string GetCurrentPath();
     protected:
     private:
         static mData* _instance;
         mData() {};
+		std::string path;
 };
 
 #endif // MDATA_H

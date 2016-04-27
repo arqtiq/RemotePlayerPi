@@ -24,6 +24,7 @@ int main(int argc, char* argv[])
     else
 	{
         cout << "RemotePlayer Initialized !" << endl;
+		RemotePlayer::Instance()->m_data->SetCurrentPath(string(argv[1]));
 	}
 
     while(true)
@@ -31,5 +32,6 @@ int main(int argc, char* argv[])
     	RemotePlayer::Instance()->Update();
     }
 
+	RemotePlayer::Instance()->Quit();
     return 0;
 }
