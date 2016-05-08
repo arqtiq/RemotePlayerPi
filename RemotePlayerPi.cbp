@@ -11,6 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="/media/raspi/0012-D687/Musique" />
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="include" />
@@ -39,19 +40,19 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="include/mData.h" />
-		<Unit filename="include/mAudio.h" />
-		<Unit filename="include/mNet.h" />
-		<Unit filename="include/mCommand.h" />
 		<Unit filename="include/Logger.h" />
 		<Unit filename="include/RemotePlayer.h" />
+		<Unit filename="include/mAudio.h" />
+		<Unit filename="include/mCommand.h" />
+		<Unit filename="include/mData.h" />
+		<Unit filename="include/mNet.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="src/mData.cpp" />
-		<Unit filename="src/mAudio.cpp" />
-		<Unit filename="src/mNet.cpp" />
-		<Unit filename="src/mCommand.cpp" />
 		<Unit filename="src/Logger.cpp" />
 		<Unit filename="src/RemotePlayer.cpp" />
+		<Unit filename="src/mAudio.cpp" />
+		<Unit filename="src/mCommand.cpp" />
+		<Unit filename="src/mData.cpp" />
+		<Unit filename="src/mNet.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
