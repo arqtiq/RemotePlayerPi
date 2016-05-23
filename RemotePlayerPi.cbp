@@ -11,7 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="/media/raspi/0012-D687/Musique" />
+				<Option parameters="/home/raspi/remotePlayerPiServer" />
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="include" />
@@ -20,6 +20,8 @@
 					<Add library="SDL" />
 					<Add library="SDL_mixer" />
 					<Add library="SDL_net" />
+					<Add library="boost_system" />
+					<Add library="boost_filesystem" />
 				</Linker>
 			</Target>
 			<Target title="Release">

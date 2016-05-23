@@ -1,7 +1,4 @@
 #include "mData.h"
-#include "RemotePlayer.h"
-
-#include <cstring>
 
 using namespace std;
 
@@ -15,51 +12,69 @@ mData* mData::Instance()
     return _instance;
 }
 
-void mData::SetCurrentPath(string path)
+bool mData::SetCurrentPath_str(string newPath)
 {
-	this->path = path;
+    if(is_directory(newPath))
+    {
+        this->currentPath = path(newPath);
+        /*vector<string> f = mData::GetFolders();
+        for(int i = 0; i < f.size(); i++)
+            RemotePlayer::Instance()->logger.Log(f[i]);*/
+        return true;
+    }
+
+    return false;
+}
+bool mData::SetCurrentPath(path newPath)
+{
+    if(is_directory(newPath))
+    {
+        this->currentPath = newPath;
+        return true;
+    }
+
+    return false;
 }
 
-string mData::GetCurrentPath()
+string mData::GetCurrentPath_str()
 {
-	return this->path;
+	return this->currentPath.filename().c_str();
+}
+path mData::GetCurrentPath()
+{
+    return this->currentPath;
 }
 
 vector<string> mData::GetFiles()
 {
-    return mData::GetData(DT_REG);
+    vector<string> files;
+    for(auto&& x : directory_iterator(this->currentPath))
+    {
+        if(is_regular_file(x.path()))
+            files.push_back(x.path().filename().c_str());
+    }
+    return files;
 }
 
 vector<string> mData::GetFolders()
 {
-    return mData::GetData(DT_DIR);
-}
-
-vector<string> mData::GetData(int DT_TYPE)
-{
-    vector<string> output;
-    DIR *dir = opendir(this->path.c_str());
-    struct dirent* entry = readdir(dir);
-    while(entry != NULL)
+    vector<string> dirs;
+    for(auto&& x : directory_iterator(this->currentPath))
     {
-        if(entry->d_type == DT_TYPE)
-        {
-            if(strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0)
-                output.push_back(entry->d_name);
-        }
-        entry = readdir(dir);
-    }
-    return output;
+        if(is_directory(x.path()))
+            dirs.push_back(x.path().filename().c_str());
+      }
+    return dirs;
 }
 
 void mData::GoToSubFolder(string subFolder)
 {
-    mData::SetCurrentPath(mData::GetCurrentPath() + "/" + subFolder);
+    mData::SetCurrentPath((this->currentPath / path(subFolder)));
 }
 
 void mData::GoToPreviousFolder()
 {
-
+    mData::SetCurrentPath(this->currentPath.parent_path());
 }
 
 void mData::Update()

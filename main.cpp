@@ -23,8 +23,14 @@ int main(int argc, char* argv[])
     }
     else
 	{
-        cout << "RemotePlayer Initialized !" << endl;
-		RemotePlayer::Instance()->m_data->SetCurrentPath(string(argv[1]));
+        cout << "RemotePlayer Initialized..." << endl;
+		if(RemotePlayer::Instance()->m_data->SetCurrentPath(string(argv[1])))
+            cout << "Init dir ok  !" << endl;
+        else
+        {
+            cout << "Init dir is not a directory !" << endl;
+            return 0;
+        }
 	}
 
     while(true)
