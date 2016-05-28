@@ -8,6 +8,7 @@ Needs the following libs :
 - SDL-Net 1.2
 
 Includes Boost headers
+
 std c++11
 
 
