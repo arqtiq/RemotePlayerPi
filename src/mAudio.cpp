@@ -14,3 +14,56 @@ void mAudio::Update()
 {
 	
 }
+
+bool mAudio::IsPlaying()
+{
+	return Mix_PlayingMusic() == 1;
+}
+
+bool mAudio::IsPaused()
+{
+	return Mix_PausedMusic() == 1;
+}
+
+void mAudio::Play()
+{
+	if(IsPaused())
+		Mix_ResumeMusic();
+	else
+		Mix_PlayMusic(song, 1);
+}
+
+void mAudio::Pause()
+{
+	Mix_PauseMusic();
+}
+
+void mAudio::TogglePlay()
+{
+	if(IsPlaying())
+		Pause();
+	else
+		Play();
+}
+
+void mAudio::Stop()
+{
+	Mix_HaltMusic();
+}
+
+void mAudio::Rewind()
+{
+	Mix_RewindMusic();
+}
+
+void mAudio::LoadSong(std::string path)
+{
+	Pause();
+	this->song = Mix_LoadMUS(path);
+	Play();
+}
+
+void mAudio::SetVolume(int percentage)
+{
+	Mix_VolumeMusic((percentage * MIX_MAX_VOLUME) / 100);
+}

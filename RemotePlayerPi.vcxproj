@@ -66,6 +66,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\Logger.cpp" />
+    <ClCompile Include="src\mAudio.cpp" />
+    <ClCompile Include="src\mCommand.cpp" />
+    <ClCompile Include="src\mData.cpp" />
+    <ClCompile Include="src\mNet.cpp" />
+    <ClCompile Include="src\RemotePlayer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Logger.h" />
+    <ClInclude Include="include\mAudio.h" />
+    <ClInclude Include="include\mCommand.h" />
+    <ClInclude Include="include\mData.h" />
+    <ClInclude Include="include\mNet.h" />
+    <ClInclude Include="include\RemotePlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
