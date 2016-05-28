@@ -7,6 +7,8 @@ Needs the following libs :
 - SDL-Mixer 1.2
 - SDL-Net 1.2
 
+Includes VC++ project, but needs previous libs added to build
+
 Includes Boost headers
 
 std c++11
