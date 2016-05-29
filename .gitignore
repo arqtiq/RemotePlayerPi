@@ -1,6 +1,8 @@
 RemotePlayerPi.layout
 RemotePlayerPi.depend
 RemotePlayerPi.sdf
+RemotePlayerPi.opensdf
 RemotePlayerPi.vcxproj.user
 RemotePlayerPi.v11.suo
 RemotePlayerPi.v12.suo
+Debug/

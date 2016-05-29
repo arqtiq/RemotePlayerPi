@@ -30,7 +30,7 @@ void mAudio::Play()
 	if(IsPaused())
 		Mix_ResumeMusic();
 	else
-		Mix_PlayMusic(song, -1);
+		Mix_PlayMusic(song, 1);
 }
 
 void mAudio::Pause()
@@ -57,11 +57,12 @@ void mAudio::Rewind()
 	Mix_RewindMusic();
 }
 
-void mAudio::LoadSong(std::string path)
+void mAudio::LoadSong(std::string path, bool play = false)
 {
-	Pause();
+	Stop();
 	song = Mix_LoadMUS(path.c_str());
-	Play();
+	if (play)
+		Play();
 }
 
 void mAudio::SetVolume(int percentage)

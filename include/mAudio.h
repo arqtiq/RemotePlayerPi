@@ -17,7 +17,7 @@ class mAudio
 		void Stop();
 		void Rewind();
 		//void SetPosition //https://www.libsdl.org/projects/SDL_mixer/docs/SDL_mixer_65.html#SEC65
-		void LoadSong(std::string path);
+		void LoadSong(std::string path, bool play = false);
 		void SetVolume(int percentage);
     protected:
     private:
