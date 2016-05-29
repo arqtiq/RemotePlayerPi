@@ -12,7 +12,7 @@ mAudio* mAudio::Instance()
 
 void mAudio::Update()
 {
-	
+    //RemotePlayer::Instance()->logger.Log(IsPlaying());
 }
 
 bool mAudio::IsPlaying()
@@ -30,12 +30,13 @@ void mAudio::Play()
 	if(IsPaused())
 		Mix_ResumeMusic();
 	else
-		Mix_PlayMusic(song, 1);
+		Mix_PlayMusic(song, -1);
 }
 
 void mAudio::Pause()
 {
-	Mix_PauseMusic();
+    if(IsPlaying())
+        Mix_PauseMusic();
 }
 
 void mAudio::TogglePlay()
@@ -59,7 +60,7 @@ void mAudio::Rewind()
 void mAudio::LoadSong(std::string path)
 {
 	Pause();
-	this->song = Mix_LoadMUS(path);
+	song = Mix_LoadMUS(path.c_str());
 	Play();
 }
 

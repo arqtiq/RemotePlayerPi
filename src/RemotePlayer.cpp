@@ -45,6 +45,13 @@ bool RemotePlayer::InitNet()
     return r == -1 ? false : true;
 }
 
+void RemotePlayer::Start()
+{
+    m_audio->LoadSong("/home/raspi/Music/song.mp3");
+    m_audio->SetVolume(100);
+    m_audio->Play();
+}
+
 void RemotePlayer::Quit()
 {
 	SDLNet_Quit();
@@ -52,10 +59,14 @@ void RemotePlayer::Quit()
 	SDL_Quit();
 }
 
-void RemotePlayer::Update()
+bool RemotePlayer::Update()
 {
+    SDL_WaitEvent(&event);
+
     m_audio->Update();
     m_net->Update();
     m_command->Update();
     m_data->Update();
+
+    return true;
 }

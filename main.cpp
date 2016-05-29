@@ -25,7 +25,10 @@ int main(int argc, char* argv[])
 	{
         cout << "RemotePlayer Initialized..." << endl;
 		if(RemotePlayer::Instance()->m_data->SetCurrentPath(string(argv[1])))
+		{
             cout << "Init dir ok  !" << endl;
+            RemotePlayer::Instance()->Start();
+        }
         else
         {
             cout << "Init dir is not a directory !" << endl;
@@ -33,10 +36,12 @@ int main(int argc, char* argv[])
         }
 	}
 
-    while(true)
+    bool _update;
+    do
     {
-    	RemotePlayer::Instance()->Update();
+    	_update = RemotePlayer::Instance()->Update();
     }
+    while(_update);
 
 	RemotePlayer::Instance()->Quit();
     return 0;

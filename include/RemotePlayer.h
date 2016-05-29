@@ -22,11 +22,13 @@ class RemotePlayer
         mCommand* m_command;
 
         bool Init();
+        void Start();
 		void Quit();
-        void Update();
+        bool Update();
     protected:
     private:
         static RemotePlayer* _instance;
+        SDL_Event event;
         RemotePlayer() {};
         bool InitSDL();
         bool InitMixer();
