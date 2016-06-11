@@ -11,7 +11,7 @@ Includes VC++ project, but needs previous libs added to build
 
 Includes Boost headers
 
-std c++11
+-std=c++14
 
 
 Dev on UbuntuMATE
