@@ -48,8 +48,8 @@
 		<Unit filename="include/mCommand.h" />
 		<Unit filename="include/mData.h" />
 		<Unit filename="include/mNet.h" />
+		<Unit filename="include/prefs.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="src/Logger.cpp" />
 		<Unit filename="src/RemotePlayer.cpp" />
 		<Unit filename="src/mAudio.cpp" />
 		<Unit filename="src/mCommand.cpp" />

@@ -10,7 +10,12 @@ mCommand* mCommand::Instance()
     return _instance;
 }
 
+void mCommand::ProcessCommand(std::string command)
+{
+
+}
+
 void mCommand::Update()
 {
-	
+
 }

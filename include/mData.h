@@ -6,21 +6,23 @@
 #include <cstring>
 
 #include "Logger.h"
+#include "prefs.h"
 
 using namespace boost::filesystem;
+using namespace std;
 
 class mData
 {
     public:
         static mData* Instance();
         void Update();
-        bool SetCurrentPath_str(std::string newPath);
+        bool SetCurrentPath_str(string newPath);
         bool SetCurrentPath(path newPath);
-		std::string GetCurrentPath_str();
+		string GetCurrentPath_str();
 		path GetCurrentPath();
-        std::vector<std::string> GetFiles();
-        std::vector<std::string> GetFolders();
-        void GoToSubFolder(std::string subFolder);
+        vector<string> GetFiles();
+        vector<string> GetFolders();
+        void GoToSubFolder(string subFolder);
         void GoToPreviousFolder();
     protected:
     private:

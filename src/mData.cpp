@@ -50,7 +50,7 @@ vector<string> mData::GetFiles()
     vector<string> files;
     for(auto&& x : directory_iterator(this->currentPath))
     {
-        if(is_regular_file(x.path()))
+        if(is_regular_file(x.path()) && Prefs::IsMusicFileFormatSupported(x.path().extension().c_str()))
             files.push_back(x.path().filename().c_str());
     }
     return files;

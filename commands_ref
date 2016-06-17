@@ -1,0 +1,16 @@
+-== Commands References ==-
+
+## DATA ##
+
+@d:dir="" //<- subfolder name
+@d:prev
+@d:prev=X //<- previous iter count
+
+## SOUND ##
+
+@s:play
+@s:pause
+@s:stop
+@s:play="" //<- file name
+@s:vol=X //<- percentage
+@s:rewind

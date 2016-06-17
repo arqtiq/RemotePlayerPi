@@ -8,6 +8,7 @@ class mCommand
     public:
         static mCommand* Instance();
         void Update();
+        void ProcessCommand(std::string command);
     protected:
     private:
         static mCommand* _instance;
