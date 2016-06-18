@@ -1,6 +1,7 @@
 #include "mData.h"
 
 using namespace std;
+using namespace boost::filesystem;
 
 mData* mData::_instance = NULL;
 
@@ -17,9 +18,6 @@ bool mData::SetCurrentPath_str(string newPath)
     if(is_directory(newPath))
     {
         this->currentPath = path(newPath);
-        /*vector<string> f = mData::GetFolders();
-        for(int i = 0; i < f.size(); i++)
-            RemotePlayer::Instance()->logger.Log(f[i]);*/
         return true;
     }
 
@@ -38,7 +36,7 @@ bool mData::SetCurrentPath(path newPath)
 
 string mData::GetCurrentPath_str()
 {
-	return this->currentPath.filename().c_str();
+	return currentPath.filename().c_str();
 }
 path mData::GetCurrentPath()
 {
@@ -48,7 +46,7 @@ path mData::GetCurrentPath()
 vector<string> mData::GetFiles()
 {
     vector<string> files;
-    for(auto&& x : directory_iterator(this->currentPath))
+    for(auto&& x : directory_iterator(currentPath))
     {
         if(is_regular_file(x.path()) && Prefs::IsMusicFileFormatSupported(x.path().extension().c_str()))
             files.push_back(x.path().filename().c_str());
@@ -59,7 +57,7 @@ vector<string> mData::GetFiles()
 vector<string> mData::GetFolders()
 {
     vector<string> dirs;
-    for(auto&& x : directory_iterator(this->currentPath))
+    for(auto&& x : directory_iterator(currentPath))
     {
         if(is_directory(x.path()))
             dirs.push_back(x.path().filename().c_str());

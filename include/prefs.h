@@ -4,21 +4,19 @@
 #include <algorithm>
 #include <array>
 
-using namespace std;
-
 class Prefs
 {
     public:
         Prefs() {}
 
-        static bool IsMusicFileFormatSupported(string format)
+        static bool IsMusicFileFormatSupported(std::string& format)
         {
-            string supp[3] = {".flac", ".mp3", ".ogg"};
-            string *f = find(begin(supp), end(supp), format);
-            return !(f == end(supp));
+            std::string supp[3] = {".flac", ".mp3", ".ogg"};
+            string *f = std::find(std::begin(supp), std::end(supp), format);
+            return !(f == std::end(supp));
         }
 
-        static bool IsCommandFormatValid(string command)
+        static bool IsCommandFormatValid(std::string &command)
         {
             if(command.size() < 4)
                 return false;

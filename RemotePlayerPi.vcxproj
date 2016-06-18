@@ -79,6 +79,7 @@
     <ClInclude Include="include\mCommand.h" />
     <ClInclude Include="include\mData.h" />
     <ClInclude Include="include\mNet.h" />
+    <ClInclude Include="include\prefs.h" />
     <ClInclude Include="include\RemotePlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

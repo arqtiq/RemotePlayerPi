@@ -8,18 +8,15 @@
 #include "Logger.h"
 #include "prefs.h"
 
-using namespace boost::filesystem;
-using namespace std;
-
 class mData
 {
     public:
         static mData* Instance();
         void Update();
         bool SetCurrentPath_str(string newPath);
-        bool SetCurrentPath(path newPath);
+        bool SetCurrentPath(boost::filesystem::path newPath);
 		string GetCurrentPath_str();
-		path GetCurrentPath();
+		boost::filesystem::path GetCurrentPath();
         vector<string> GetFiles();
         vector<string> GetFolders();
         void GoToSubFolder(string subFolder);
@@ -28,7 +25,7 @@ class mData
     private:
         static mData* _instance;
         mData() {};
-		path currentPath;
+		boost::filesystem::path currentPath;
 };
 
 #endif // MDATA_H
