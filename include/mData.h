@@ -14,6 +14,7 @@ class mData
         static mData* Instance();
         void Update();
         bool SetCurrentPath_str(string newPath);
+		bool SetInitPath_str(string initPath);
         bool SetCurrentPath(boost::filesystem::path newPath);
 		string GetCurrentPath_str();
 		boost::filesystem::path GetCurrentPath();
@@ -21,10 +22,12 @@ class mData
         vector<string> GetFolders();
         void GoToSubFolder(string subFolder);
         void GoToPreviousFolder();
+		void GoToHomeFolder();
     protected:
     private:
         static mData* _instance;
         mData() {};
+		boost::filesystem::path initPath;
 		boost::filesystem::path currentPath;
 };
 

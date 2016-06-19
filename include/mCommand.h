@@ -7,6 +7,8 @@
 #include <string>
 #include <map>
 
+class RemotePlayer;
+
 class mCommand
 {
     public:
@@ -22,6 +24,7 @@ class mCommand
         bool ExtractCommandData(std::string command, std::string& function, std::string& parameter);
 		bool ExData(std::string func, std::string param);
 		bool ExSound(std::string func, std::string param);
+		FuncType GetFuncTypeFromString(std::string& func);
 };
 
 #endif // MCOMMAND_H

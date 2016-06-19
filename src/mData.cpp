@@ -17,17 +17,29 @@ bool mData::SetCurrentPath_str(string newPath)
 {
     if(is_directory(newPath))
     {
-        this->currentPath = path(newPath);
+        currentPath = path(newPath);
         return true;
     }
 
     return false;
 }
+
+bool mData::SetInitPath_str(string init)
+{
+	if (SetCurrentPath_str(init))
+	{
+		initPath = path(init);
+		return true;
+	}
+
+	return false,
+}
+
 bool mData::SetCurrentPath(path newPath)
 {
     if(is_directory(newPath))
     {
-        this->currentPath = newPath;
+        currentPath = newPath;
         return true;
     }
 
@@ -40,7 +52,7 @@ string mData::GetCurrentPath_str()
 }
 path mData::GetCurrentPath()
 {
-    return this->currentPath;
+    return currentPath;
 }
 
 vector<string> mData::GetFiles()
@@ -67,12 +79,17 @@ vector<string> mData::GetFolders()
 
 void mData::GoToSubFolder(string subFolder)
 {
-    mData::SetCurrentPath((this->currentPath / path(subFolder)));
+    SetCurrentPath((currentPath / path(subFolder)));
 }
 
 void mData::GoToPreviousFolder()
 {
-    mData::SetCurrentPath(this->currentPath.parent_path());
+    SetCurrentPath(currentPath.parent_path());
+}
+
+void mData::GoToHomeFolder()
+{
+	SetCurrentPath(initPath);
 }
 
 void mData::Update()

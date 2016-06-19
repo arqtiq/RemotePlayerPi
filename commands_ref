@@ -5,6 +5,7 @@
 @d:dir;""			//<- subfolder name
 @d:prev;
 @d:prev;X			//<- previous iter count
+@d:home
 
 ## SOUND ##
 
@@ -13,4 +14,4 @@
 @s:stop;
 @s:play;""			//<- file name
 @s:vol;X			//<- percentage
-@s:rewind;
+@s:rew;

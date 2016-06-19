@@ -4,7 +4,7 @@ using namespace std;
 
 enum class FuncType
 {
-	dDIR, dPREV, sPLAY, sPAUSE, sSTOP, sVOL, sREWIND
+	dDIR, dPREV, dHOME, sPLAY, sPAUSE, sSTOP, sVOL, sREWIND
 };
 
 mCommand* mCommand::_instance = NULL;
@@ -14,7 +14,14 @@ mCommand* mCommand::Instance()
     if(!_instance)
         _instance = new mCommand;
 
-	_instance-> FuncToEnum.insert(std::pair<string, FuncType>("dir", FuncType::dDIR));
+	_instance->FuncToEnum.insert(std::pair<string, FuncType>("dir", FuncType::dDIR));
+	_instance->FuncToEnum.insert(std::pair<string, FuncType>("prev", FuncType::dPREV));
+	_instance->FuncToEnum.insert(std::pair<string, FuncType>("home", FuncType::dHOME));
+	_instance->FuncToEnum.insert(std::pair<string, FuncType>("play", FuncType::sPLAY));
+	_instance->FuncToEnum.insert(std::pair<string, FuncType>("pause", FuncType::sPAUSE));
+	_instance->FuncToEnum.insert(std::pair<string, FuncType>("stop", FuncType::sSTOP));
+	_instance->FuncToEnum.insert(std::pair<string, FuncType>("vol", FuncType::sVOL));
+	_instance->FuncToEnum.insert(std::pair<string, FuncType>("rew", FuncType::sREWIND));
 
     return _instance;
 }
@@ -58,12 +65,29 @@ bool mCommand::ExtractCommandData(string command, string& function, string& para
 
 bool mCommand::ExData(string func, string param)
 {
+	switch (GetFuncTypeFromString(func))
+	{
+		case FuncType::dHOME:
+			
+			return true;
 
+		default:
+			return false;
+	}
 }
 
 bool mCommand::ExSound(string func, string param)
 {
+	switch (GetFuncTypeFromString(func))
+	{
+		default:
+			return false;
+	}
+}
 
+FuncType mCommand::GetFuncTypeFromString(std::string& func)
+{
+	return FuncToEnum[func];
 }
 
 void mCommand::Update()
