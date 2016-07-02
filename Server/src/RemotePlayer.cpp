@@ -12,11 +12,6 @@ RemotePlayer* RemotePlayer::Instance()
 
 bool RemotePlayer::Init()
 {
-    m_audio = mAudio::Instance();
-    m_net = mNet::Instance();
-    m_command = mCommand::Instance();
-    m_data = mData::Instance();
-
     return InitSDL() && InitMixer() && InitNet();
 }
 
@@ -61,10 +56,10 @@ bool RemotePlayer::Update()
 {
     SDL_WaitEvent(&event);
 
-    m_audio->Update();
-    m_net->Update();
-    m_command->Update();
-    m_data->Update();
+    mAudio::Instance()->Update();
+    mNet::Instance()->Update();
+    mCommand::Instance()->Update();
+    mData::Instance()->Update();
 
     return true;
 }

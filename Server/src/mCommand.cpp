@@ -1,5 +1,8 @@
 #include "mCommand.h"
 
+#include "mAudio.h"
+#include "mData.h"
+
 using namespace std;
 
 enum class FuncType
@@ -68,9 +71,23 @@ bool mCommand::ExData(string func, string param)
 	switch (GetFuncTypeFromString(func))
 	{
 		case FuncType::dHOME:
-			
+			mData::Instance()->GoToHomeFolder();
 			return true;
-
+		case FuncType::dDIR:
+			if (param.size() == 0)
+				return false;
+			mData::Instance()->GoToSubFolder(param);
+			return true;
+		case FuncType::dPREV:
+			if (param.size() == 0)
+			{
+				mData::Instance()->GoToPreviousFolder();
+				return true;
+			}
+			int iter = atoi(param.data());
+			while(iter--)
+				mData::Instance()->GoToPreviousFolder();
+			return true;
 		default:
 			return false;
 	}

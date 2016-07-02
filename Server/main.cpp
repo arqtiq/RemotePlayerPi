@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
     else
 	{
         cout << "RemotePlayer Initialized..." << endl;
-		if(RemotePlayer::Instance()->m_data->SetInitPath_str(string(argv[1])))
+		if(mData::Instance()->SetInitPath_str(string(argv[1])))
 		{
             cout << "Init dir ok  !" << endl;
             RemotePlayer::Instance()->Start();

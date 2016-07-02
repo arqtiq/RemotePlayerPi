@@ -19,10 +19,6 @@ class RemotePlayer
 {
     public:
         static RemotePlayer* Instance();
-        mAudio* m_audio;
-        mData* m_data;
-        mNet* m_net;
-        mCommand* m_command;
 
         bool Init();
         void Start();

@@ -84,7 +84,8 @@ void mData::GoToSubFolder(string subFolder)
 
 void mData::GoToPreviousFolder()
 {
-    SetCurrentPath(currentPath.parent_path());
+	//if(currentPath != initial_path) // avoid to go beyond home dir
+		SetCurrentPath(currentPath.parent_path());
 }
 
 void mData::GoToHomeFolder()
