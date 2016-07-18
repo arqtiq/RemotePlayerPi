@@ -32,7 +32,7 @@ bool mData::SetInitPath_str(string init)
 		return true;
 	}
 
-	return false,
+	return false;
 }
 
 bool mData::SetCurrentPath(path newPath)
@@ -73,7 +73,7 @@ vector<string> mData::GetFolders()
     {
         if(is_directory(x.path()))
             dirs.push_back(x.path().filename().c_str());
-      }
+    }
     return dirs;
 }
 
@@ -84,7 +84,7 @@ void mData::GoToSubFolder(string subFolder)
 
 void mData::GoToPreviousFolder()
 {
-	//if(currentPath != initial_path) // avoid to go beyond home dir
+	if(!equivalent(currentPath, initPath)) // avoid to go beyond home dir
 		SetCurrentPath(currentPath.parent_path());
 }
 

@@ -5,11 +5,6 @@
 
 using namespace std;
 
-enum class FuncType
-{
-	dDIR, dPREV, dHOME, sPLAY, sPAUSE, sSTOP, sVOL, sREWIND
-};
-
 mCommand* mCommand::_instance = NULL;
 
 mCommand* mCommand::Instance()
@@ -79,6 +74,7 @@ bool mCommand::ExData(string func, string param)
 			mData::Instance()->GoToSubFolder(param);
 			return true;
 		case FuncType::dPREV:
+		{
 			if (param.size() == 0)
 			{
 				mData::Instance()->GoToPreviousFolder();
@@ -88,6 +84,7 @@ bool mCommand::ExData(string func, string param)
 			while(iter--)
 				mData::Instance()->GoToPreviousFolder();
 			return true;
+        }
 		default:
 			return false;
 	}

@@ -9,6 +9,11 @@
 
 class RemotePlayer;
 
+enum class FuncType
+{
+	dDIR, dPREV, dHOME, sPLAY, sPAUSE, sSTOP, sVOL, sREWIND
+};
+
 class mCommand
 {
     public:

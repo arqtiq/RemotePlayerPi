@@ -9,14 +9,14 @@ class Prefs
     public:
         Prefs() {}
 
-        static bool IsMusicFileFormatSupported(std::string& format)
+        static bool IsMusicFileFormatSupported(std::string format)
         {
             std::string supp[3] = {".flac", ".mp3", ".ogg"};
             string *f = std::find(std::begin(supp), std::end(supp), format);
             return !(f == std::end(supp));
         }
 
-        static bool IsCommandFormatValid(std::string &command)
+        static bool IsCommandFormatValid(std::string command)
         {
             if(command.size() < 4)
                 return false;
@@ -29,9 +29,6 @@ class Prefs
 
             return false;
         }
-
-    protected:
-    private:
 };
 
 #endif // PREFS_H
