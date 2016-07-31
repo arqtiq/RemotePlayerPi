@@ -1,4 +1,6 @@
-# RemotePlayerPi
+## RemotePlayerPi
+
+# Server
 
 Project is Code::Blocks
 
@@ -15,3 +17,11 @@ Includes Boost headers
 
 
 Dev on UbuntuMATE
+
+# App
+
+TBD
+
+- UWP ?
+- Xamarin ?
+- Native Android ?
