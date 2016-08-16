@@ -9,6 +9,9 @@ class Prefs
     public:
         Prefs() {}
 
+		static unsigned const short NET_PORT = 1234;
+		static unsigned const short NET_BUFFER_SIZE = 512;
+
         static bool IsMusicFileFormatSupported(std::string format)
         {
             std::string supp[3] = {".flac", ".mp3", ".ogg"};

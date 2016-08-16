@@ -35,8 +35,19 @@ bool RemotePlayer::InitNet()
 {
     int r = SDLNet_Init();
     if(r == -1)
+	{
         Logger::Log("Error initializing SDL_Net; " + std::string(SDLNet_GetError()));
-    return r == -1 ? false : true;
+		return false;
+	}
+
+	std::string m = mNet::Instance()->Resolve();
+	if(m != "OK")
+	{
+		Logger::Log("Error creating server; " + m);
+		return false;
+	}
+
+	return true;
 }
 
 void RemotePlayer::Start()
