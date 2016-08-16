@@ -13,6 +13,17 @@ mData* mData::Instance()
     return _instance;
 }
 
+bool mData::Init()
+{
+	return true;
+}
+
+void mData::Update()
+{ }
+
+void mData::Quit()
+{ }
+
 bool mData::SetCurrentPath_str(string newPath)
 {
     if(is_directory(newPath))
@@ -91,9 +102,4 @@ void mData::GoToPreviousFolder()
 void mData::GoToHomeFolder()
 {
 	SetCurrentPath(initPath);
-}
-
-void mData::Update()
-{
-
 }

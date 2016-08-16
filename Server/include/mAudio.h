@@ -2,13 +2,16 @@
 #define MAUDIO_H
 
 #include "Logger.h"
+#include "mBase.h"
 #include "SDL/SDL_mixer.h"
 
-class mAudio
+class mAudio : mBase
 {
     public:
         static mAudio* Instance();
-        void Update();
+        virtual bool Init();
+        virtual void Update();
+        virtual void Quit();
 		bool IsPlaying();
 		bool IsPaused();
 		void Play();

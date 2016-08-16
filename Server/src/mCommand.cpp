@@ -12,17 +12,27 @@ mCommand* mCommand::Instance()
     if(!_instance)
         _instance = new mCommand;
 
-	_instance->FuncToEnum.insert(std::pair<string, FuncType>("dir", FuncType::dDIR));
-	_instance->FuncToEnum.insert(std::pair<string, FuncType>("prev", FuncType::dPREV));
-	_instance->FuncToEnum.insert(std::pair<string, FuncType>("home", FuncType::dHOME));
-	_instance->FuncToEnum.insert(std::pair<string, FuncType>("play", FuncType::sPLAY));
-	_instance->FuncToEnum.insert(std::pair<string, FuncType>("pause", FuncType::sPAUSE));
-	_instance->FuncToEnum.insert(std::pair<string, FuncType>("stop", FuncType::sSTOP));
-	_instance->FuncToEnum.insert(std::pair<string, FuncType>("vol", FuncType::sVOL));
-	_instance->FuncToEnum.insert(std::pair<string, FuncType>("rew", FuncType::sREWIND));
-
     return _instance;
 }
+
+bool mCommand::Init()
+{
+	FuncToEnum.insert(std::pair<string, FuncType>("dir", FuncType::dDIR));
+	FuncToEnum.insert(std::pair<string, FuncType>("prev", FuncType::dPREV));
+	FuncToEnum.insert(std::pair<string, FuncType>("home", FuncType::dHOME));
+	FuncToEnum.insert(std::pair<string, FuncType>("play", FuncType::sPLAY));
+	FuncToEnum.insert(std::pair<string, FuncType>("pause", FuncType::sPAUSE));
+	FuncToEnum.insert(std::pair<string, FuncType>("stop", FuncType::sSTOP));
+	FuncToEnum.insert(std::pair<string, FuncType>("vol", FuncType::sVOL));
+	FuncToEnum.insert(std::pair<string, FuncType>("rew", FuncType::sREWIND));
+	return true;
+}
+
+void mCommand::Update()
+{ }
+
+void mCommand::Quit()
+{ }
 
 bool mCommand::ProcessCommand(string command)
 {
@@ -102,9 +112,4 @@ bool mCommand::ExSound(string func, string param)
 FuncType mCommand::GetFuncTypeFromString(std::string& func)
 {
 	return FuncToEnum[func];
-}
-
-void mCommand::Update()
-{
-
 }

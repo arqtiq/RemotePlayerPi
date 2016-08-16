@@ -10,8 +10,20 @@ mAudio* mAudio::Instance()
     return _instance;
 }
 
-void mAudio::Update()
+bool mAudio::Init()
 {
+	int r = Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
+    if(r == -1)
+        Logger::Log("Error initializing SDL_Mixer; " + std::string(Mix_GetError()));
+    return r == -1 ? false : true;
+}
+
+void mAudio::Update()
+{ }
+
+void mAudio::Quit()
+{
+	Mix_Quit();
 }
 
 bool mAudio::IsPlaying()

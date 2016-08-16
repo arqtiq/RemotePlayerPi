@@ -7,6 +7,7 @@
 
 #include "Logger.h"
 
+#include "mBase.h"
 #include "mData.h"
 #include "mAudio.h"
 #include "mCommand.h"
@@ -19,11 +20,11 @@ class RemotePlayer
 {
     public:
         static RemotePlayer* Instance();
-
+		vector<mBase*> modules;
         bool Init();
         void Start();
 		void Quit();
-        bool Update();
+        void Update();
     protected:
     private:
         static RemotePlayer* _instance;

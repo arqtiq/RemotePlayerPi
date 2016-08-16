@@ -7,12 +7,15 @@
 
 #include "Logger.h"
 #include "prefs.h"
+#include "mBase.h"
 
-class mData
+class mData : mBase
 {
     public:
         static mData* Instance();
-        void Update();
+        virtual bool Init();
+        virtual void Update();
+        virtual void Quit();
         bool SetCurrentPath_str(string newPath);
 		bool SetInitPath_str(string initPath);
         bool SetCurrentPath(boost::filesystem::path newPath);

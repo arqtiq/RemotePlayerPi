@@ -17,6 +17,52 @@ mNet::mNet()
 	ClientConnected = false;
 }
 
+bool mNet::Init()
+{
+    int r = SDLNet_Init();
+    if(r == -1)
+	{
+        Logger::Log("Error initializing SDL_Net; " + std::string(SDLNet_GetError()));
+		return false;
+	}
+
+	std::string m = Resolve();
+	if(m != "OK")
+	{
+		Logger::Log("Error creating server; " + m);
+		return false;
+	}
+
+	return true;
+}
+
+void mNet::Update()
+{
+	int serverSocketActivity = SDLNet_SocketReady(serverSocket);
+    if (serverSocketActivity != 0)
+    {
+		if(!ClientConnected) // new connection
+		{
+			clientSocket = SDLNet_TCP_Accept(serverSocket);
+			SDLNet_TCP_AddSocket(socketSet, clientSocket);
+			ClientConnected = true;
+			SendToClient("1");
+			Logger::Log("Client connected !");
+		}
+		else // server busy
+		{
+			SendToClient("0", true);
+			Logger::Log("Client refused !");
+		}
+	}
+}
+
+
+void mNet::Quit()
+{
+}
+
+
 string mNet::Resolve()
 {
     socketSet = SDLNet_AllocSocketSet(2);
@@ -46,25 +92,4 @@ void mNet::SendToClient(string msg, bool tempSocket = false)
 	}
 	else
 		SDLNet_TCP_Send(clientSocket, (void*)buffer, lgth);
-}
-
-void mNet::Update()
-{
-	int serverSocketActivity = SDLNet_SocketReady(serverSocket);
-    if (serverSocketActivity != 0)
-    {
-		if(!ClientConnected) // new connection
-		{
-			clientSocket = SDLNet_TCP_Accept(serverSocket);
-			SDLNet_TCP_AddSocket(socketSet, clientSocket);
-			ClientConnected = true;
-			SendToClient("1");
-			Logger::Log("Client connected !");
-		}
-		else // server busy
-		{
-			SendToClient("0", true);
-			Logger::Log("Client refused !");
-		}
-	}
 }

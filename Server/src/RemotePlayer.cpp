@@ -12,7 +12,16 @@ RemotePlayer* RemotePlayer::Instance()
 
 bool RemotePlayer::Init()
 {
-    return InitSDL() && InitMixer() && InitNet();
+	modules.push_back((mBase*)mAudio::Instance());
+	modules.push_back((mBase*)mData::Instance());
+	modules.push_back((mBase*)mCommand::Instance());
+	modules.push_back((mBase*)mNet::Instance());
+
+	bool res = InitSDL();
+	for (size_t i = 0; i < modules.size(); i++)
+		res &= modules[i]->Init();
+
+    return res;
 }
 
 bool RemotePlayer::InitSDL()
@@ -23,33 +32,6 @@ bool RemotePlayer::InitSDL()
     return r == -1 ? false : true;
 }
 
-bool RemotePlayer::InitMixer()
-{
-    int r = Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
-    if(r == -1)
-        Logger::Log("Error initializing SDL_Mixer; " + std::string(Mix_GetError()));
-    return r == -1 ? false : true;
-}
-
-bool RemotePlayer::InitNet()
-{
-    int r = SDLNet_Init();
-    if(r == -1)
-	{
-        Logger::Log("Error initializing SDL_Net; " + std::string(SDLNet_GetError()));
-		return false;
-	}
-
-	std::string m = mNet::Instance()->Resolve();
-	if(m != "OK")
-	{
-		Logger::Log("Error creating server; " + m);
-		return false;
-	}
-
-	return true;
-}
-
 void RemotePlayer::Start()
 {
     /*m_audio->LoadSong("/home/raspi/Music/song.mp3", true);
@@ -58,19 +40,16 @@ void RemotePlayer::Start()
 
 void RemotePlayer::Quit()
 {
-	SDLNet_Quit();
-	Mix_Quit();
+	for (size_t i = 0; i < modules.size(); i++)
+		modules[i]->Quit();
+
 	SDL_Quit();
 }
 
-bool RemotePlayer::Update()
+void RemotePlayer::Update()
 {
     SDL_WaitEvent(&event);
 
-    mAudio::Instance()->Update();
-    mNet::Instance()->Update();
-    mCommand::Instance()->Update();
-    mData::Instance()->Update();
-
-    return true;
+    for (size_t i = 0; i < modules.size(); i++)
+		modules[i]->Update();
 }

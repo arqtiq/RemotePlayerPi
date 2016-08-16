@@ -5,7 +5,7 @@
 class mBase
 {
     public:
-        mBase();
+		mBase();
         virtual bool Init();
         virtual void Update();
         virtual void Quit();

@@ -3,6 +3,7 @@
 
 #include "Logger.h"
 #include "prefs.h"
+#include "mBase.h"
 
 #include <string>
 #include <map>
@@ -14,12 +15,14 @@ enum class FuncType
 	dDIR, dPREV, dHOME, sPLAY, sPAUSE, sSTOP, sVOL, sREWIND
 };
 
-class mCommand
+class mCommand : mBase
 {
     public:
         static mCommand* Instance();
+		virtual bool Init();
+        virtual void Update();
+        virtual void Quit();
 		std::map<std::string, FuncType> FuncToEnum;
-        void Update();
         bool ProcessCommand(std::string command);
     protected:
     private:

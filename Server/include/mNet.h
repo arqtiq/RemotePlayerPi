@@ -3,16 +3,20 @@
 
 #include "Logger.h"
 #include "prefs.h"
+#include "mBase.h"
 #include "SDL/SDL_net.h"
+
 #include <string.h>
 
-class mNet
+class mNet : mBase
 {
     public:
         static mNet* Instance();
+		virtual bool Init();
+        virtual void Update();
+        virtual void Quit();
 		bool ClientConnected;
 		std::string Resolve();
-        void Update();
 		void DisconnectClient();
     protected:
     private:
