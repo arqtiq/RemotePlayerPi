@@ -48,6 +48,7 @@
 		<Unit filename="include/mCommand.h" />
 		<Unit filename="include/mData.h" />
 		<Unit filename="include/mNet.h" />
+		<Unit filename="include/mBase.h" />
 		<Unit filename="include/prefs.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/RemotePlayer.cpp" />
@@ -55,6 +56,7 @@
 		<Unit filename="src/mCommand.cpp" />
 		<Unit filename="src/mData.cpp" />
 		<Unit filename="src/mNet.cpp" />
+		<Unit filename="src/mBase.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
