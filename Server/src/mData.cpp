@@ -15,6 +15,7 @@ mData* mData::Instance()
 
 bool mData::Init()
 {
+    Logger::Log("Data module init OK");
 	return true;
 }
 

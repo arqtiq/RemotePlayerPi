@@ -28,6 +28,7 @@ class mNet : mBase
 		SDLNet_SocketSet socketSet;
 		mNet();
 		void SendToClient(std::string msg, bool tempSocket);
+		void OnMessageReceived(std::string msg);
 };
 
 #endif // MNET_H

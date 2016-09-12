@@ -25,6 +25,8 @@ bool mCommand::Init()
 	FuncToEnum.insert(std::pair<string, FuncType>("stop", FuncType::sSTOP));
 	FuncToEnum.insert(std::pair<string, FuncType>("vol", FuncType::sVOL));
 	FuncToEnum.insert(std::pair<string, FuncType>("rew", FuncType::sREWIND));
+
+	Logger::Log("Command module init OK");
 	return true;
 }
 

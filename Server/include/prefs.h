@@ -23,9 +23,9 @@ class Prefs
         {
             if(command.size() < 4)
                 return false;
-            array<char, 2> pre = {'s','d'};
             if(command.at(0) != '@' || command.at(2) != ':')
                 return false;
+            array<char, 2> pre = {'s','d'};
             for(size_t i = 0; i < pre.size(); i++)
                 if(pre[i] == command.at(1))
                     return true;

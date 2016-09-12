@@ -5,10 +5,10 @@
 class mBase
 {
     public:
-		mBase();
-        virtual bool Init();
-        virtual void Update();
-        virtual void Quit();
+		mBase() {}
+        virtual bool Init() { return false; }
+        virtual void Update() {}
+        virtual void Quit() {}
     protected:
     private:
 };

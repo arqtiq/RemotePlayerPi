@@ -33,7 +33,45 @@ bool mNet::Init()
 		return false;
 	}
 
+    Logger::Log("Net module init OK");
 	return true;
+}
+
+string mNet::Resolve()
+{
+    socketSet = SDLNet_AllocSocketSet(2);
+	if(socketSet == NULL)
+		return "Could not allocate socket set : " + string(SDLNet_GetError());
+
+	if(SDLNet_ResolveHost(&serverIP, NULL, Prefs::NET_PORT) == -1)
+		return "Could not resolve server host : " + string(SDLNet_GetError());
+
+	serverSocket = SDLNet_TCP_Open(&serverIP);
+	if(!serverSocket)
+		return "Could not create server socket : " + string(SDLNet_GetError());
+
+	SDLNet_TCP_AddSocket(socketSet, serverSocket);
+	return "OK";
+}
+
+void mNet::SendToClient(string msg, bool tempSocket = false)
+{
+	strcpy(buffer, msg.c_str());
+	int lgth = strlen(buffer) + 1;
+
+	TCPsocket* sendSocket = new TCPsocket;
+	*sendSocket = tempSocket ? SDLNet_TCP_Accept(serverSocket) : clientSocket;
+	SDLNet_TCP_Send(*sendSocket, (void*)buffer, lgth);
+
+	if(tempSocket)
+		SDLNet_TCP_Close(*sendSocket);
+
+    delete sendSocket;
+}
+
+void mNet::OnMessageReceived(std::string msg)
+{
+
 }
 
 void mNet::Update()
@@ -57,39 +95,7 @@ void mNet::Update()
 	}
 }
 
-
 void mNet::Quit()
 {
-}
-
-
-string mNet::Resolve()
-{
-    socketSet = SDLNet_AllocSocketSet(2);
-	if(socketSet == NULL)
-		return "Could not allocate socket set : " + string(SDLNet_GetError());
-
-	if(SDLNet_ResolveHost(&serverIP, NULL, Prefs::NET_PORT) == -1)
-		return "Could not resolve server host : " + string(SDLNet_GetError());
-
-	serverSocket = SDLNet_TCP_Open(&serverIP);
-	if(!serverSocket)
-		return "Could not create server socket : " + string(SDLNet_GetError());
-
-	SDLNet_TCP_AddSocket(socketSet, serverSocket);
-	return "OK";
-}
-
-void mNet::SendToClient(string msg, bool tempSocket = false)
-{
-	strcpy(buffer, msg.c_str());
-	int lgth = strlen(buffer) + 1;
-	if(tempSocket)
-	{
-		TCPsocket tempSock = SDLNet_TCP_Accept(serverSocket);
-		SDLNet_TCP_Send(tempSock, (void*)buffer, lgth);
-		SDLNet_TCP_Close(tempSock);
-	}
-	else
-		SDLNet_TCP_Send(clientSocket, (void*)buffer, lgth);
+    SDLNet_Quit();
 }

@@ -36,10 +36,10 @@ int main(int argc, char* argv[])
         }
 	}
 
-    bool _update;
+    bool _update = true;
     do
     {
-    	_update = RemotePlayer::Instance()->Update();
+    	RemotePlayer::Instance()->Update();
     }
     while(_update);
 

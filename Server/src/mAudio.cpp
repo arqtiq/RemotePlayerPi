@@ -15,6 +15,9 @@ bool mAudio::Init()
 	int r = Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
     if(r == -1)
         Logger::Log("Error initializing SDL_Mixer; " + std::string(Mix_GetError()));
+    else
+        Logger::Log("Audio module init OK");
+
     return r == -1 ? false : true;
 }
 
