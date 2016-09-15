@@ -59,14 +59,11 @@ void mNet::SendToClient(string msg, bool tempSocket = false)
 	strcpy(buffer, msg.c_str());
 	int lgth = strlen(buffer) + 1;
 
-	TCPsocket* sendSocket = new TCPsocket;
-	*sendSocket = tempSocket ? SDLNet_TCP_Accept(serverSocket) : clientSocket;
-	SDLNet_TCP_Send(*sendSocket, (void*)buffer, lgth);
+	TCPsocket sendSocket = tempSocket ? SDLNet_TCP_Accept(serverSocket) : clientSocket;
+	SDLNet_TCP_Send(sendSocket, (void*)buffer, lgth);
 
 	if(tempSocket)
-		SDLNet_TCP_Close(*sendSocket);
-
-    delete sendSocket;
+		SDLNet_TCP_Close(sendSocket);
 }
 
 void mNet::OnMessageReceived(std::string msg)
