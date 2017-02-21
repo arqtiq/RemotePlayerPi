@@ -1,0 +1,4 @@
+RemotePlayerPiApp.MainActivity, RemotePlayerPiApp;md5c0fa2d39f7a3a893d1e8f5979848b576.MainActivity
+RemotePlayerPiApp.MainActivity, RemotePlayerPiApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5c0fa2d39f7a3a893d1e8f5979848b576.MainActivity
+RemotePlayerPiApp.MainActivity;md5c0fa2d39f7a3a893d1e8f5979848b576.MainActivity
+remoteplayerpiapp.MainActivity;md5c0fa2d39f7a3a893d1e8f5979848b576.MainActivity
