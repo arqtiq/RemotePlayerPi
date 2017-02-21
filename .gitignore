@@ -8,3 +8,6 @@ Server/RemotePlayerPi.v12.suo
 Server/Debug/
 Server/obj/
 Server/.vs/
+App/.vs/
+App/RemotePlayerPiApp.csproj.user
+App/obj/
