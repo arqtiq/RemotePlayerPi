@@ -27,11 +27,11 @@ namespace RemotePlayerPiApp
 
             if (string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(port))
             {
-                Toast.MakeText(ApplicationContext, "Input IP Adress or Port is empty", ToastLength.Long);
+                Toast.MakeText(ApplicationContext, "Input IP Adress or Port is empty", ToastLength.Long).Show();
                 return;
             }
 
-            //if(Network.Connect(ip, port))
+            if(Network.Connect(ip, port))
             {
 
             }

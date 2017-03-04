@@ -1,3 +1,4 @@
+# Server
 Server/RemotePlayerPi.layout
 Server/RemotePlayerPi.depend
 Server/RemotePlayerPi.sdf
@@ -8,6 +9,11 @@ Server/RemotePlayerPi.v12.suo
 Server/Debug/
 Server/obj/
 Server/.vs/
+
+# App
 App/.vs/
 App/RemotePlayerPiApp.csproj.user
 App/obj/
+App/bin/Debug/*.mdb
+App/bin/Debug/*.dll
+App/bin/Debug/*.pdb
