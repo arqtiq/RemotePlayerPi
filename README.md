@@ -20,8 +20,5 @@ Dev on UbuntuMATE
 
 # App
 
-TBD
-
-- UWP ?
-- Xamarin ?
-- Native Android ?
+Xamarin for Visual Studio
+Targeting Android 6
