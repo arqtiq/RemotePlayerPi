@@ -15,7 +15,7 @@ namespace RemotePlayerPiApp
 
             RequestWindowFeature(WindowFeatures.NoTitle);
             SetContentView(Resource.Layout.Main);
-
+            
             FindViewById<EditText>(Resource.Id.serverPortInput).Text = Network.PORT.ToString();
             FindViewById<Button>(Resource.Id.connexionBtn).Click += connexionBtnClick;
         }
@@ -31,9 +31,10 @@ namespace RemotePlayerPiApp
                 return;
             }
 
-            if(Network.Connect(ip, port))
+            if(!Network.Connect(ip, port))
             {
-
+                Toast.MakeText(ApplicationContext, "Unable to connect", ToastLength.Long).Show();
+                return;
             }
         }
     }
