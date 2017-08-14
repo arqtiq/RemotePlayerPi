@@ -1,41 +1,26 @@
-﻿using Android.App;
-using Android.Widget;
-using Android.OS;
-using Android.Views;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
 
 namespace RemotePlayerPiApp
 {
-    [Activity(Label = "RemotePlayerPiApp", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "MainActivity")]
     public class MainActivity : Activity
     {
-        protected override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(bundle);
+            base.OnCreate(savedInstanceState);
 
             RequestWindowFeature(WindowFeatures.NoTitle);
             SetContentView(Resource.Layout.Main);
-            
-            FindViewById<EditText>(Resource.Id.serverPortInput).Text = Network.PORT.ToString();
-            FindViewById<Button>(Resource.Id.connexionBtn).Click += connexionBtnClick;
-        }
-
-        private void connexionBtnClick(object sender, EventArgs e)
-        {
-            string ip = FindViewById<EditText>(Resource.Id.serverIPinput).Text;
-            string port = FindViewById<EditText>(Resource.Id.serverPortInput).Text;
-
-            if (string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(port))
-            {
-                Toast.MakeText(ApplicationContext, "Input IP Adress or Port is empty", ToastLength.Long).Show();
-                return;
-            }
-
-            if(!Network.Connect(ip, port))
-            {
-                Toast.MakeText(ApplicationContext, "Unable to connect", ToastLength.Long).Show();
-                return;
-            }
         }
     }
 }

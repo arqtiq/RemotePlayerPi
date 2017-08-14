@@ -68,7 +68,7 @@ void mNet::SendToClient(string msg, bool tempSocket = false)
 
 void mNet::OnMessageReceived(std::string msg)
 {
-
+	mCommand::Instance()->ProcessCommand(msg);
 }
 
 void mNet::Update()

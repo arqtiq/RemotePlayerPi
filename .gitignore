@@ -17,3 +17,6 @@ App/obj/
 App/bin/Debug/*.mdb
 App/bin/Debug/*.dll
 App/bin/Debug/*.pdb
+
+# Global
+.vscode/

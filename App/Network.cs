@@ -25,6 +25,7 @@ namespace RemotePlayerPiApp
                 int _port = int.Parse(port);
                 client.Connect(_ip, _port);
                 _connected = true;
+                //SendToServer(Environment.UserName);
             }
             catch
             {
