@@ -4,6 +4,8 @@ using System.IO;
 
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
+using Android.Widget;
 
 namespace RemotePlayerPiApp
 {
@@ -15,28 +17,26 @@ namespace RemotePlayerPiApp
         static TcpClient client;
         static bool connected = false;
 
-        static public bool Connect(string IP, string port)
+        static public async Task<ConnexionResult> Connect(string IP, string port)
         {
-            bool _connected = false;
+            ConnexionResult result = new ConnexionResult();
+            client = new TcpClient();
+            client.SendTimeout = 3000;
+
             try
             {
-                client = new TcpClient();
                 IPAddress _ip = IPAddress.Parse(IP);
                 int _port = int.Parse(port);
-                client.Connect(_ip, _port);
-                _connected = true;
-                //SendToServer(Environment.UserName);
+                await client.ConnectAsync(_ip, _port);
+                connected = client.Connected;
             }
-            catch
+            catch (Exception e)
             {
-                _connected = false;
-            }
-            finally
-            {
-                connected = _connected;
+                result.Message = e.Message;
             }
 
-            return _connected;
+            result.Connected = connected;
+            return result;
         }
 
         static public void Disconnect()
@@ -65,10 +65,16 @@ namespace RemotePlayerPiApp
 
             buffer = new byte[BUFFER_SIZE];
             int size = ns.Read(buffer, 0, buffer.Length);
-            string response = ASCIIEncoding.ASCII.GetString(buffer);
+            string response = Encoding.ASCII.GetString(buffer);
 
             ns.Close();
             return response;
         }
+    }
+
+    public struct ConnexionResult
+    {
+        public bool Connected;
+        public string Message;
     }
 }

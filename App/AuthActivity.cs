@@ -3,6 +3,9 @@ using Android.Widget;
 using Android.OS;
 using Android.Views;
 using System;
+using System.Threading.Tasks;
+using Android;
+using System.Collections.Generic;
 
 namespace RemotePlayerPiApp
 {
@@ -18,9 +21,11 @@ namespace RemotePlayerPiApp
             
             FindViewById<EditText>(Resource.Id.serverPortInput).Text = Network.PORT.ToString();
             FindViewById<Button>(Resource.Id.connexionBtn).Click += connexionBtnClick;
+
+            HandlePermissions();
         }
 
-        private void connexionBtnClick(object sender, EventArgs e)
+        private async void connexionBtnClick(object sender, EventArgs e)
         {
             string ip = FindViewById<EditText>(Resource.Id.serverIPinput).Text;
             string port = FindViewById<EditText>(Resource.Id.serverPortInput).Text;
@@ -31,9 +36,10 @@ namespace RemotePlayerPiApp
                 return;
             }
 
-            if(!Network.Connect(ip, port))
+            ConnexionResult res = await Network.Connect(ip, port);
+            if (!res.Connected)
             {
-                Toast.MakeText(ApplicationContext, "Unable to connect", ToastLength.Long).Show();
+                Toast.MakeText(ApplicationContext, "Unable to connect : " + res.Message, ToastLength.Long).Show();
                 return;
             }
 
@@ -42,10 +48,28 @@ namespace RemotePlayerPiApp
 
         private void Start()
         {
-            Toast.MakeText(ApplicationContext, "Unable to connect", ToastLength.Long).Show();
-
             StartActivity(typeof(MainActivity));
             Finish();
+        }
+
+        private void HandlePermissions()
+        {
+            if ((int)Build.VERSION.SdkInt < 23)
+                return;
+
+            string[] permissions =
+            {
+                Manifest.Permission.AccessNetworkState,
+                Manifest.Permission.Internet
+            };
+
+            List<string> denied = new List<string>();
+            foreach (string s in permissions)
+                if (CheckSelfPermission(s) != Android.Content.PM.Permission.Granted)
+                    denied.Add(s);
+
+            if(denied.Count > 0)
+                RequestPermissions(denied.ToArray(), 0);
         }
     }
 }
