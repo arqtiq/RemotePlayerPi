@@ -36,54 +36,43 @@ void mCommand::Update()
 void mCommand::Quit()
 { }
 
-bool mCommand::IsConnectionCommand(std::string command, std::string& name)
+CommandData mCommand::ProcessCommand(string command)
 {
-	string func, param;
-	if (!ExtractCommandData(command, func, param))
-		return false;
-	if (command != "connect")
-		return false;
+	CommandData _command;
+	_command.command = command;
 
-	name = param;
-	return true;
+	if (!Prefs::IsCommandFormatValid(command))
+	{
+		_command.isValid = false;
+		return _command;
+	}
 
+	string str = command.substr(3);
+	size_t split_pos = str.find(';');
+	if (split_pos == string::npos)
+	{
+		_command.isValid = false;
+		return _command;
+	}
+	_command.type = command.at(1);
+	_command.func = str.substr(0, split_pos);
+	_command.param = str.substr(split_pos + 1, str.size() - split_pos - 1);
+
+	_command.isConnection = _command.type == 'n' && _command.func == "connect";
+	_command.isDisconnection = _command.type == 'n' && _command.func == "disconnect";
 }
 
-bool mCommand::ProcessCommand(string command)
+bool mCommand::ExecuteCommand(CommandData* command)
 {
-	if(!Prefs::IsCommandFormatValid(command))
-		return false;
-
-	string func, param;
-	if(!ExtractCommandData(command, func, param))
-		return false;
-
-	switch (GetCommandType(command))
+	switch (command->type)
 	{
 		case 'd':
-			return ExData(func, param);
+			return ExData(command->func, command->param);
 		case 's':
-			return ExSound(func, param);
+			return ExSound(command->func, command->param);
 		default:
 			return false;
 	}
-}
-
-char mCommand::GetCommandType(string& command)
-{
-	return command.at(1);
-}
-
-bool mCommand::ExtractCommandData(string command, string& function, string& parameter)
-{
-	string str = command.substr(3);
-	size_t split_pos = str.find(';');
-	if(split_pos == string::npos)
-		return false;
-
-	function = command.substr(0, split_pos);
-	parameter = command.substr(split_pos + 1, command.size() - split_pos - 1);
-	return true;
 }
 
 bool mCommand::ExData(string func, string param)

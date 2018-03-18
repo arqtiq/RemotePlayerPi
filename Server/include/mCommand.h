@@ -15,6 +15,13 @@ enum class FuncType
 	dDIR, dPREV, dHOME, sPLAY, sPAUSE, sSTOP, sVOL, sREWIND
 };
 
+struct CommandData
+{
+	bool isValid, isConnection, isDisconnection;
+	string command, func, param;
+	char type;
+};
+
 class mCommand : mBase
 {
     public:
@@ -22,15 +29,13 @@ class mCommand : mBase
 		virtual bool Init();
         virtual void Update();
         virtual void Quit();
-		bool IsConnectionCommand(std::string command, std::string& name);
 		std::map<std::string, FuncType> FuncToEnum;
-        bool ProcessCommand(std::string command);
+		CommandData ProcessCommand(std::string command);
+		bool ExecuteCommand(CommandData* command);
     protected:
     private:
         static mCommand* _instance;
         mCommand() {};
-		char GetCommandType(std::string& command);
-        bool ExtractCommandData(std::string command, std::string& function, std::string& parameter);
 		bool ExData(std::string func, std::string param);
 		bool ExSound(std::string func, std::string param);
 		FuncType GetFuncTypeFromString(std::string& func);

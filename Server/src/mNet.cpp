@@ -16,6 +16,7 @@ mNet* mNet::Instance()
 mNet::mNet()
 {
 	ClientConnected = false;
+	clientIP = 0;
 }
 
 bool mNet::Init()
@@ -26,41 +27,21 @@ bool mNet::Init()
         Logger::Log("Error initializing SDL_Net; " + std::string(SDLNet_GetError()));
 		return false;
 	}
-
-	std::string error;
-	if(!Resolve(error))
+	socket = SDLNet_UDP_Open(Prefs::NET_PORT);
+	if (!socket)
 	{
-		Logger::Log("Error creating server; " + error);
+		Logger::Log("Error creating server socket; " + std::string(SDLNet_GetError()));
+		return false;
+	}
+
+	packet = SDLNet_AllocPacket(Prefs::NET_BUFFER_SIZE);
+	if (!packet)
+	{
+		Logger::Log("Error alocation packet size; " + std::string(SDLNet_GetError()));
 		return false;
 	}
 
     Logger::Log("Net module init OK");
-	return true;
-}
-
-bool mNet::Resolve(string &error)
-{
-    socketSet = SDLNet_AllocSocketSet(2);
-	if(socketSet == NULL)
-	{
-		error = "Could not allocate socket set : " + string(SDLNet_GetError());
-		return false;
-    }
-
-	if(SDLNet_ResolveHost(&serverIP, NULL, Prefs::NET_PORT) == -1)
-	{
-		error = "Could not resolve server host : " + string(SDLNet_GetError());
-		return false;
-    }
-
-	serverSocket = SDLNet_TCP_Open(&serverIP);
-	if(!serverSocket)
-	{
-		error = "Could not create server socket : " + string(SDLNet_GetError());
-		return false;
-    }
-
-	SDLNet_TCP_AddSocket(socketSet, serverSocket);
 	return true;
 }
 
@@ -76,30 +57,52 @@ void mNet::SendToClient(string msg, bool tempSocket = false)
 		SDLNet_TCP_Close(sendSocket);
 }
 
-void mNet::OnMessageReceived(std::string msg)
+void mNet::OnMessageReceived(string msg)
 {
 	mCommand::Instance()->ProcessCommand(msg);
 }
 
 void mNet::Update()
 {
-	int serverSocketActivity = SDLNet_SocketReady(serverSocket);
-    if (serverSocketActivity != 0)
-    {
-		if(!ClientConnected) // new connection
-		{
+	if (!ClientConnected)
+		return;
 
-			clientSocket = SDLNet_TCP_Accept(serverSocket);
-			SDLNet_TCP_AddSocket(socketSet, clientSocket);
-			ClientConnected = true;
-			SendToClient("1");
-			Logger::Log("Client connected !");
-		}
-		else // server busy
+	if (SDLNet_UDP_Recv(socket, packet))
+	{
+		int ip = (int)packet->adress.port;
+		string data = string((char *)packet->data);
+		CommandData c = mCommand::Instance()->ProcessCommand(data);
+		if (!c.isValid)
+			return;
+
+		if (c.isDisconnection && ClientConnected)
+			DisconnectClient(ip);
+		else if (c.isConnection)
 		{
-			SendToClient("0", true);
-			Logger::Log("Client refused !");
+			if (ClientConnected)
+				Logger::Log("Connection refused.");
+			else
+				ConnectClient(ip);
 		}
+		else
+			mCommand::Instance()->ExecuteCommand(&c);
+	}
+}
+
+void mNet::ConnectClient(int ip)
+{
+	clientIP = ip;
+	ClientConnected = true;
+	Logger::Log("Client connected : " + to_string(ip));
+}
+
+void mNet::DisconnectClient(int ip)
+{
+	if (ip == clientIP)
+	{
+		clientIP = 0;
+		ClientConnected = false;
+		Logger::Log("Client disconnected : " + to_string(ip));
 	}
 }
 

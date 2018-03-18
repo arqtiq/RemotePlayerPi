@@ -16,19 +16,17 @@ class mNet : mBase
         virtual void Update();
         virtual void Quit();
 		bool ClientConnected;
-		bool Resolve(std::string& error);
-		void DisconnectClient();
+		void DisconnectClient(int ip);
     protected:
     private:
         static mNet* _instance;
-		char buffer[Prefs::NET_BUFFER_SIZE];
-		IPaddress serverIP;
-		TCPsocket serverSocket;
-		TCPsocket clientSocket;
-		SDLNet_SocketSet socketSet;
+		UDPSocket socket;
+		UDPpacket *packet;
+		int clientIP;
 		mNet();
-		void SendToClient(std::string msg, bool tempSocket);
-		void OnMessageReceived(std::string msg);
+		void SendToClient(string msg, bool tempSocket);
+		void OnMessageReceived(string msg);
+		void ConnectClient(int ip);
 };
 
 #endif // MNET_H

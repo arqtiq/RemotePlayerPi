@@ -2,7 +2,8 @@
 
 ## NET ##
 
-@n:connect;N		//<- client name
+@n:connect;
+@n:disconnect;
 
 ## DATA ##
 
