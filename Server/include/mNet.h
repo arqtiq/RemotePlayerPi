@@ -16,7 +16,7 @@ class mNet : mBase
         virtual void Update();
         virtual void Quit();
 		bool ClientConnected;
-		std::string Resolve();
+		bool Resolve(std::string& error);
 		void DisconnectClient();
     protected:
     private:

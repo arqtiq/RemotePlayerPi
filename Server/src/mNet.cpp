@@ -1,4 +1,5 @@
 #include "mNet.h"
+#include "mCommand.h"
 
 using namespace std;
 
@@ -26,10 +27,10 @@ bool mNet::Init()
 		return false;
 	}
 
-	std::string m = Resolve();
-	if(m != "OK")
+	std::string error;
+	if(!Resolve(error))
 	{
-		Logger::Log("Error creating server; " + m);
+		Logger::Log("Error creating server; " + error);
 		return false;
 	}
 
@@ -37,21 +38,30 @@ bool mNet::Init()
 	return true;
 }
 
-string mNet::Resolve()
+bool mNet::Resolve(string &error)
 {
     socketSet = SDLNet_AllocSocketSet(2);
 	if(socketSet == NULL)
-		return "Could not allocate socket set : " + string(SDLNet_GetError());
+	{
+		error = "Could not allocate socket set : " + string(SDLNet_GetError());
+		return false;
+    }
 
 	if(SDLNet_ResolveHost(&serverIP, NULL, Prefs::NET_PORT) == -1)
-		return "Could not resolve server host : " + string(SDLNet_GetError());
+	{
+		error = "Could not resolve server host : " + string(SDLNet_GetError());
+		return false;
+    }
 
 	serverSocket = SDLNet_TCP_Open(&serverIP);
 	if(!serverSocket)
-		return "Could not create server socket : " + string(SDLNet_GetError());
+	{
+		error = "Could not create server socket : " + string(SDLNet_GetError());
+		return false;
+    }
 
 	SDLNet_TCP_AddSocket(socketSet, serverSocket);
-	return "OK";
+	return true;
 }
 
 void mNet::SendToClient(string msg, bool tempSocket = false)
@@ -78,6 +88,7 @@ void mNet::Update()
     {
 		if(!ClientConnected) // new connection
 		{
+
 			clientSocket = SDLNet_TCP_Accept(serverSocket);
 			SDLNet_TCP_AddSocket(socketSet, clientSocket);
 			ClientConnected = true;
