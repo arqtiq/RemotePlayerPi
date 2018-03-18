@@ -36,6 +36,19 @@ void mCommand::Update()
 void mCommand::Quit()
 { }
 
+bool mCommand::IsConnectionCommand(std::string command, std::string& name)
+{
+	string func, param;
+	if (!ExtractCommandData(command, func, param))
+		return false;
+	if (command != "connect")
+		return false;
+
+	name = param;
+	return true;
+
+}
+
 bool mCommand::ProcessCommand(string command)
 {
 	if(!Prefs::IsCommandFormatValid(command))

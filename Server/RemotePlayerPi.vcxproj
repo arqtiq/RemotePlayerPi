@@ -39,7 +39,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Gratien\Documents\GitHub\RemotePlayerPi\Server\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\grati\Documents\GitHub\RemotePlayerPi\Server\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -69,7 +69,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Logger.cpp" />
-	<ClCompile Include="src\mBase.cpp" />
+    <ClCompile Include="src\mBase.cpp" />
     <ClCompile Include="src\mAudio.cpp" />
     <ClCompile Include="src\mCommand.cpp" />
     <ClCompile Include="src\mData.cpp" />
@@ -79,12 +79,15 @@
   <ItemGroup>
     <ClInclude Include="include\Logger.h" />
     <ClInclude Include="include\mAudio.h" />
-	<ClInclude Include="include\mBase.h" />
+    <ClInclude Include="include\mBase.h" />
     <ClInclude Include="include\mCommand.h" />
     <ClInclude Include="include\mData.h" />
     <ClInclude Include="include\mNet.h" />
     <ClInclude Include="include\prefs.h" />
     <ClInclude Include="include\RemotePlayer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\commands_ref" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,6 +22,7 @@ class mCommand : mBase
 		virtual bool Init();
         virtual void Update();
         virtual void Quit();
+		bool IsConnectionCommand(std::string command, std::string& name);
 		std::map<std::string, FuncType> FuncToEnum;
         bool ProcessCommand(std::string command);
     protected:
