@@ -45,16 +45,9 @@ bool mNet::Init()
 	return true;
 }
 
-void mNet::SendToClient(string msg, bool tempSocket = false)
+void mNet::SendMessage(string msg)
 {
-	strcpy(buffer, msg.c_str());
-	int lgth = strlen(buffer) + 1;
 
-	TCPsocket sendSocket = tempSocket ? SDLNet_TCP_Accept(serverSocket) : clientSocket;
-	SDLNet_TCP_Send(sendSocket, (void*)buffer, lgth);
-
-	if(tempSocket)
-		SDLNet_TCP_Close(sendSocket);
 }
 
 void mNet::OnMessageReceived(string msg)
@@ -69,7 +62,7 @@ void mNet::Update()
 
 	if (SDLNet_UDP_Recv(socket, packet))
 	{
-		int ip = (int)packet->adress.port;
+		int ip = (int)packet->address.port;
 		string data = string((char *)packet->data);
 		CommandData c = mCommand::Instance()->ProcessCommand(data);
 		if (!c.isValid)

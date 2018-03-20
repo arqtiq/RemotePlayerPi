@@ -20,11 +20,11 @@ class mNet : mBase
     protected:
     private:
         static mNet* _instance;
-		UDPSocket socket;
+		UDPsocket socket;
 		UDPpacket *packet;
 		int clientIP;
 		mNet();
-		void SendToClient(string msg, bool tempSocket);
+		void SendMessage(string msg);
 		void OnMessageReceived(string msg);
 		void ConnectClient(int ip);
 };
