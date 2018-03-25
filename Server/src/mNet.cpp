@@ -50,23 +50,19 @@ void mNet::SendMessage(string msg)
 
 }
 
-void mNet::OnMessageReceived(string msg)
-{
-	mCommand::Instance()->ProcessCommand(msg);
-}
-
 void mNet::Update()
 {
-	if (!ClientConnected)
-		return;
-
 	if (SDLNet_UDP_Recv(socket, packet))
 	{
 		int ip = (int)packet->address.port;
 		string data = string((char *)packet->data);
+		Logger::Log("Command received :" + data);
 		CommandData c = mCommand::Instance()->ProcessCommand(data);
 		if (!c.isValid)
+		{
+			Logger::Log("Command invalid.");
 			return;
+		}
 
 		if (c.isDisconnection && ClientConnected)
 			DisconnectClient(ip);
@@ -78,7 +74,10 @@ void mNet::Update()
 				ConnectClient(ip);
 		}
 		else
+		{
 			mCommand::Instance()->ExecuteCommand(&c);
+			Logger::Log("Command executed.");
+		}
 	}
 }
 

@@ -25,7 +25,6 @@ class mNet : mBase
 		int clientIP;
 		mNet();
 		void SendMessage(string msg);
-		void OnMessageReceived(string msg);
 		void ConnectClient(int ip);
 };
 
