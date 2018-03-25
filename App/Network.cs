@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using Android.Widget;
+using System.Threading;
 
 namespace RemotePlayerPiApp
 {
@@ -17,6 +18,17 @@ namespace RemotePlayerPiApp
         static UdpClient client;
         static IPEndPoint ip;
         static bool connected = false;
+
+        static Timer receiveTimer;
+        static TimerCallback timerDelegate;
+        public delegate void NetworkEvent(string message);
+        static public event NetworkEvent OnMessageReceived;
+
+        static public void Init()
+        {
+            timerDelegate = new TimerCallback(ReceiveTick);
+            receiveTimer = new Timer(timerDelegate, receiveTimer, 0, 100);            
+        }
 
         static public ConnexionResult Connect(string IP, string port)
         {
@@ -52,10 +64,23 @@ namespace RemotePlayerPiApp
 
         static public void SendToServer(string message)
         {
-            if(client == null)
+            if(!connected || client == null)
                 return;
 
+            byte[] data = Encoding.UTF8.GetBytes(message);
+            client.Send(data, data.Length);
+        }
 
+        static void ReceiveTick(object state)
+        {
+            if (!connected)
+                return;
+
+            var endPoint = new IPEndPoint(IPAddress.Any, PORT);
+            byte[] data = client.Receive(ref endPoint);
+            string message = Encoding.UTF8.GetString(data);
+            if(!string.IsNullOrWhiteSpace(message))
+                OnMessageReceived?.Invoke(message);
         }
     }
 

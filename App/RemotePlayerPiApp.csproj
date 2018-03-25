@@ -30,11 +30,11 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
-    <BundleAssemblies>False</BundleAssemblies>
+    <BundleAssemblies>false</BundleAssemblies>
     <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
     <Debugger>.Net (Xamarin)</Debugger>
-    <AotAssemblies>False</AotAssemblies>
-    <EnableLLVM>False</EnableLLVM>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
     <EnableProguard>False</EnableProguard>
   </PropertyGroup>
@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="AuthActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="NetActivity.cs" />
     <Compile Include="Network.cs" />
     <Compile Include="Prefs.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

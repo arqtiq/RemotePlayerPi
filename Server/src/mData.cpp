@@ -108,7 +108,7 @@ string mData::GetFolderDescription()
 	desc += "|";
 	for (size_t i = 0; i < folders.size(); i++)
 		desc += (!i ? "" : "*") + folders[i];
-    desc += ":";
+    desc += "|";
 	for (size_t j = 0; j < files.size(); j++)
 		desc += (!j ? "" : "*") + files[j];
 

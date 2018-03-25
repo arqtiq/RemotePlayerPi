@@ -10,8 +10,10 @@ using System.Collections.Generic;
 namespace RemotePlayerPiApp
 {
     [Activity(Label = "Authentication", MainLauncher = true, Icon = "@drawable/icon")]
-    public class AuthActivity : Activity
+    public class AuthActivity : NetActivity
     {
+        bool connecting = false;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -26,6 +28,8 @@ namespace RemotePlayerPiApp
             FindViewById<Button>(Resource.Id.connexionBtn).Click += connexionBtnClick;
 
             HandlePermissions();
+
+            Network.Init();
         }
 
         private void connexionBtnClick(object sender, EventArgs e)
@@ -48,7 +52,8 @@ namespace RemotePlayerPiApp
                 return;
             }
 
-            Start();
+            Network.SendToServer("@n:connect;");
+            connecting = true;
         }
 
         private void Start()
@@ -75,6 +80,20 @@ namespace RemotePlayerPiApp
 
             if(denied.Count > 0)
                 RequestPermissions(denied.ToArray(), 0);
+        }
+
+        protected override void Network_OnMessageReceived(string message)
+        {
+            if (!connecting)
+                return;
+
+            if (message == "0")
+                Toast.MakeText(ApplicationContext, "Server refused the connection", ToastLength.Long).Show();
+            else if (message == "1")
+            {
+                Toast.MakeText(ApplicationContext, "Server refused the connection", ToastLength.Short).Show();
+                Start();
+            }
         }
     }
 }

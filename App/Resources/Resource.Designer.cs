@@ -63,6 +63,9 @@ namespace RemotePlayerPiApp
 			// aapt resource value: 0x7f050006
 			public const int connexionBtn = 2131034118;
 			
+			// aapt resource value: 0x7f050007
+			public const int rootText = 2131034119;
+			
 			// aapt resource value: 0x7f050002
 			public const int serverIPinput = 2131034114;
 			
