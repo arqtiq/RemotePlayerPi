@@ -56,7 +56,7 @@ void mNet::Update()
 	{
 		int ip = (int)packet->address.port;
 		string data = string((char *)packet->data);
-		Logger::Log("Command received :" + data);
+		Logger::Log("Command received : " + data);
 		CommandData c = mCommand::Instance()->ProcessCommand(data);
 		if (!c.isValid)
 		{

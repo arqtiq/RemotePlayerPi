@@ -15,7 +15,7 @@ enum class FuncType
 	dDIR, dPREV, dHOME, sPLAY, sPAUSE, sSTOP, sVOL, sREWIND
 };
 
-struct CommandData
+struct Command
 {
 	bool isValid, isConnection, isDisconnection;
 	string command, func, param;
@@ -30,8 +30,8 @@ class mCommand : mBase
         virtual void Update();
         virtual void Quit();
 		std::map<std::string, FuncType> FuncToEnum;
-		CommandData ProcessCommand(std::string command);
-		bool ExecuteCommand(CommandData* command);
+		Command ProcessCommand(std::string command);
+		bool ExecuteCommand(Command* command);
     protected:
     private:
         static mCommand* _instance;

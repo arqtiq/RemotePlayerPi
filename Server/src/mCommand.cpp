@@ -36,9 +36,9 @@ void mCommand::Update()
 void mCommand::Quit()
 { }
 
-CommandData mCommand::ProcessCommand(string command)
+Command mCommand::ProcessCommand(string command)
 {
-	CommandData _command;
+	Command _command;
 	_command.command = command;
 
 	if (!Prefs::IsCommandFormatValid(command))
@@ -60,9 +60,11 @@ CommandData mCommand::ProcessCommand(string command)
 
 	_command.isConnection = _command.type == 'n' && _command.func == "connect";
 	_command.isDisconnection = _command.type == 'n' && _command.func == "disconnect";
+
+	return _command;
 }
 
-bool mCommand::ExecuteCommand(CommandData* command)
+bool mCommand::ExecuteCommand(Command* command)
 {
 	switch (command->type)
 	{
