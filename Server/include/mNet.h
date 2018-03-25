@@ -26,6 +26,7 @@ class mNet : mBase
 		mNet();
 		void SendMessage(string msg);
 		void ConnectClient(int ip);
+		void RefuseClient();
 };
 
 #endif // MNET_H
