@@ -54,6 +54,8 @@ Command mCommand::ProcessCommand(string command)
 		_command.isValid = false;
 		return _command;
 	}
+
+	_command.isValid = true;
 	_command.type = command.at(1);
 	_command.func = str.substr(0, split_pos);
 	_command.param = str.substr(split_pos + 1, str.size() - split_pos - 1);
