@@ -21,7 +21,7 @@ class RemotePlayer
     public:
         static RemotePlayer* Instance();
 		vector<mBase*> modules;
-        bool Init();
+        bool Init(string initDir);
         void Start();
 		void Quit();
         void Update();

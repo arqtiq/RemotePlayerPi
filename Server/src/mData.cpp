@@ -52,41 +52,37 @@ bool mData::SetCurrentPath(path newPath)
     if(is_directory(newPath))
     {
         currentPath = newPath;
+		GetFiles();
+		GetFolders();
         return true;
     }
 
     return false;
 }
 
-string mData::GetCurrentPath_str()
-{
-	return currentPath.filename().c_str();
-}
 path mData::GetCurrentPath()
 {
     return currentPath;
 }
 
-vector<string> mData::GetFiles()
+void mData::getFiles()
 {
-    vector<string> files;
+	files.clear();
     for(auto&& x : directory_iterator(currentPath))
     {
-        if(is_regular_file(x.path()) && Prefs::IsMusicFileFormatSupported(x.path().extension().c_str()))
-            files.push_back(x.path().filename().c_str());
+        if(is_regular_file(x.path()) && Prefs::IsMusicFileFormatSupported(x.path().extension().string()))
+            files.push_back(x.path().filename().string());
     }
-    return files;
 }
 
-vector<string> mData::GetFolders()
+void mData::getFolders()
 {
-    vector<string> dirs;
+	folders.clear();
     for(auto&& x : directory_iterator(currentPath))
     {
         if(is_directory(x.path()))
-            dirs.push_back(x.path().filename().c_str());
+            folders.push_back(x.path().filename().string());
     }
-    return dirs;
 }
 
 void mData::GoToSubFolder(string subFolder)
@@ -103,4 +99,17 @@ void mData::GoToPreviousFolder()
 void mData::GoToHomeFolder()
 {
 	SetCurrentPath(initPath);
+}
+
+string mData::GetFolderDescription()
+{
+	string desc = currentPath.string().substr(initPath.parent_path().string().length(),
+		currentPath.string().length);
+	desc += "|";
+	for (int i = 0; i < folders.size(); i++)
+		desc += (!i ? "" : "*") + folders[i];
+	for (int j = 0; j < files.size(); j++)
+		desc += (!j ? "" : "*") + folders[j];
+
+	return desc;
 }

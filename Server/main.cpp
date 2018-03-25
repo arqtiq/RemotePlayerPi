@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 		cout << "Using " << argv[1] << " init dir" << endl << endl;
 	}
 
-    if(!RemotePlayer::Instance()->Init())
+    if(!RemotePlayer::Instance()->Init(string(argv[1])))
     {
         cout << "Error Initializing RemotePlayer" << endl;
         return 0;
@@ -24,16 +24,7 @@ int main(int argc, char* argv[])
     else
 	{
         cout << "RemotePlayer Initialized..." << endl;
-		if(mData::Instance()->SetInitPath_str(string(argv[1])))
-		{
-            cout << "Init dir ok  !" << endl;
-            RemotePlayer::Instance()->Start();
-        }
-        else
-        {
-            cout << "Init dir is not a directory !" << endl;
-            return 0;
-        }
+        RemotePlayer::Instance()->Start();
 	}
 
     bool _update = true;
