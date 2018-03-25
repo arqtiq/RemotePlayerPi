@@ -18,17 +18,22 @@ namespace RemotePlayerPiApp
 
             RequestWindowFeature(WindowFeatures.NoTitle);
             SetContentView(Resource.Layout.Auth);
-            
+
+            string _ip = Prefs.GetSavedIP();
+            if (_ip != null)
+                FindViewById<EditText>(Resource.Id.serverIPinput).Text = _ip;
             FindViewById<EditText>(Resource.Id.serverPortInput).Text = Network.PORT.ToString();
             FindViewById<Button>(Resource.Id.connexionBtn).Click += connexionBtnClick;
 
             HandlePermissions();
         }
 
-        private async void connexionBtnClick(object sender, EventArgs e)
+        private void connexionBtnClick(object sender, EventArgs e)
         {
             string ip = FindViewById<EditText>(Resource.Id.serverIPinput).Text;
             string port = FindViewById<EditText>(Resource.Id.serverPortInput).Text;
+
+            Prefs.SaveIP(ip);
 
             if (string.IsNullOrWhiteSpace(ip) || string.IsNullOrWhiteSpace(port))
             {
@@ -36,7 +41,7 @@ namespace RemotePlayerPiApp
                 return;
             }
 
-            ConnexionResult res = await Network.Connect(ip, port);
+            ConnexionResult res = Network.Connect(ip, port);
             if (!res.Connected)
             {
                 Toast.MakeText(ApplicationContext, "Unable to connect : " + res.Message, ToastLength.Long).Show();

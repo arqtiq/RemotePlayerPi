@@ -14,25 +14,25 @@ namespace RemotePlayerPiApp
         static public readonly int PORT = 1234;
         static public readonly int BUFFER_SIZE = 512;
 
-        static TcpClient client;
+        static UdpClient client;
+        static IPEndPoint ip;
         static bool connected = false;
 
-        static public async Task<ConnexionResult> Connect(string IP, string port)
+        static public ConnexionResult Connect(string IP, string port)
         {
             ConnexionResult result = new ConnexionResult();
-            client = new TcpClient();
-            client.SendTimeout = 3000;
+            client = new UdpClient();
+            ip = new IPEndPoint(IPAddress.Parse(IP), int.Parse(port));
 
             try
             {
-                IPAddress _ip = IPAddress.Parse(IP);
-                int _port = int.Parse(port);
-                await client.ConnectAsync(_ip, _port);
-                connected = client.Connected;
+                client.Connect(ip);
+                connected = true;
             }
             catch (Exception e)
             {
                 result.Message = e.Message;
+                connected = false;
             }
 
             result.Connected = connected;
@@ -42,6 +42,7 @@ namespace RemotePlayerPiApp
         static public void Disconnect()
         {
             connected = false;
+            client.Close();
         }
 
         static public bool IsConnected()
@@ -49,26 +50,12 @@ namespace RemotePlayerPiApp
             return connected;
         }
 
-        static public string SendToServer(string message)
+        static public void SendToServer(string message)
         {
             if(client == null)
-                return null;
-            
-            NetworkStream ns = client.GetStream();
-            ASCIIEncoding enc = new ASCIIEncoding();
-            byte[] buffer = enc.GetBytes(message);
+                return;
 
-            ns.Write(buffer, 0, buffer.Length);
 
-            while(!ns.DataAvailable)
-            { }
-
-            buffer = new byte[BUFFER_SIZE];
-            int size = ns.Read(buffer, 0, buffer.Length);
-            string response = Encoding.ASCII.GetString(buffer);
-
-            ns.Close();
-            return response;
         }
     }
 
