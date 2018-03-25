@@ -17,6 +17,7 @@ class mNet : mBase
         virtual void Quit();
 		bool ClientConnected;
 		void DisconnectClient(int ip);
+        void SendMessage(string msg);
     protected:
     private:
         static mNet* _instance;
@@ -24,7 +25,6 @@ class mNet : mBase
 		UDPpacket *packet;
 		int clientIP;
 		mNet();
-		void SendMessage(string msg);
 		void ConnectClient(int ip);
 		void RefuseClient();
 };

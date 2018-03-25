@@ -47,8 +47,8 @@ bool mNet::Init()
 
 void mNet::SendMessage(string msg)
 {
-	packet->data = msg;
-	packet->len = msg.size() + 1;
+	packet->len = strlen(msg.data());
+    memcpy(packet->data, msg.data(), packet->len);
 	SDLNet_UDP_Send(socket, -1, packet);
 }
 
@@ -58,6 +58,7 @@ void mNet::Update()
 	{
 		int ip = (int)packet->address.host;
 		string data = string((char *)packet->data);
+		data = data.substr(0, packet->len);
 		Logger::Log("Command received : " + data);
 		Command c = mCommand::Instance()->ProcessCommand(data);
 		if (!c.isValid)

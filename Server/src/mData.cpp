@@ -52,8 +52,8 @@ bool mData::SetCurrentPath(path newPath)
     if(is_directory(newPath))
     {
         currentPath = newPath;
-		GetFiles();
-		GetFolders();
+		getFiles();
+		getFolders();
         return true;
     }
 
@@ -104,12 +104,13 @@ void mData::GoToHomeFolder()
 string mData::GetFolderDescription()
 {
 	string desc = currentPath.string().substr(initPath.parent_path().string().length(),
-		currentPath.string().length);
+		currentPath.string().length());
 	desc += "|";
-	for (int i = 0; i < folders.size(); i++)
+	for (size_t i = 0; i < folders.size(); i++)
 		desc += (!i ? "" : "*") + folders[i];
-	for (int j = 0; j < files.size(); j++)
-		desc += (!j ? "" : "*") + folders[j];
+    desc += ":";
+	for (size_t j = 0; j < files.size(); j++)
+		desc += (!j ? "" : "*") + files[j];
 
 	return desc;
 }

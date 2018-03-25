@@ -12,7 +12,9 @@ class RemotePlayer;
 
 enum class FuncType
 {
-	dDIR, dPREV, dHOME, sPLAY, sPAUSE, sSTOP, sVOL, sREWIND
+	nCO, nDIS, nPING,
+	dDIR, dPREV, dHOME,
+	sPLAY, sPAUSE, sSTOP, sVOL, sREWIND
 };
 
 struct Command
@@ -39,6 +41,7 @@ class mCommand : mBase
 		bool ExData(std::string func, std::string param);
 		bool ExSound(std::string func, std::string param);
 		FuncType GetFuncTypeFromString(std::string& func);
+		void SendFolderDescription();
 };
 
 #endif // MCOMMAND_H
