@@ -37,7 +37,7 @@ bool mNet::Init()
 	packet = SDLNet_AllocPacket(Prefs::NET_BUFFER_SIZE);
 	if (!packet)
 	{
-		Logger::Log("Error alocation packet size; " + std::string(SDLNet_GetError()));
+		Logger::Log("Error allocating packet size; " + std::string(SDLNet_GetError()));
 		return false;
 	}
 
@@ -47,38 +47,40 @@ bool mNet::Init()
 
 void mNet::SendMessage(string msg)
 {
-
-}
-
-void mNet::OnMessageReceived(string msg)
-{
-	mCommand::Instance()->ProcessCommand(msg);
+	packet->len = strlen(msg.data());
+    memcpy(packet->data, msg.data(), packet->len);
+	SDLNet_UDP_Send(socket, -1, packet);
 }
 
 void mNet::Update()
 {
-	if (!ClientConnected)
-		return;
-
 	if (SDLNet_UDP_Recv(socket, packet))
 	{
-		int ip = (int)packet->address.port;
+		int ip = (int)packet->address.host;
 		string data = string((char *)packet->data);
-		CommandData c = mCommand::Instance()->ProcessCommand(data);
+		data = data.substr(0, packet->len);
+		Logger::Log("Command received : " + data);
+		Command c = mCommand::Instance()->ProcessCommand(data);
 		if (!c.isValid)
+		{
+			Logger::Log("Command invalid.");
 			return;
+		}
 
 		if (c.isDisconnection && ClientConnected)
 			DisconnectClient(ip);
 		else if (c.isConnection)
 		{
 			if (ClientConnected)
-				Logger::Log("Connection refused.");
+				RefuseClient();
 			else
 				ConnectClient(ip);
 		}
 		else
+		{
 			mCommand::Instance()->ExecuteCommand(&c);
+			Logger::Log("Command executed.");
+		}
 	}
 }
 
@@ -86,6 +88,7 @@ void mNet::ConnectClient(int ip)
 {
 	clientIP = ip;
 	ClientConnected = true;
+	SendMessage(to_string(1));
 	Logger::Log("Client connected : " + to_string(ip));
 }
 
@@ -97,6 +100,12 @@ void mNet::DisconnectClient(int ip)
 		ClientConnected = false;
 		Logger::Log("Client disconnected : " + to_string(ip));
 	}
+}
+
+void mNet::RefuseClient()
+{
+	SendMessage(to_string(0));
+	Logger::Log("Connection refused.");
 }
 
 void mNet::Quit()

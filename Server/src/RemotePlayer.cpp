@@ -10,7 +10,7 @@ RemotePlayer* RemotePlayer::Instance()
     return _instance;
 }
 
-bool RemotePlayer::Init()
+bool RemotePlayer::Init(string initDir)
 {
 	modules.push_back((mBase*)mAudio::Instance());
 	modules.push_back((mBase*)mData::Instance());
@@ -20,6 +20,8 @@ bool RemotePlayer::Init()
 	bool res = InitSDL();
 	for (size_t i = 0; i < modules.size(); i++)
 		res &= modules[i]->Init();
+
+	res &= mData::Instance()->SetInitPath_str(initDir);
 
     return res;
 }

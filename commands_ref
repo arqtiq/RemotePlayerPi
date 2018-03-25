@@ -4,6 +4,7 @@
 
 @n:connect;
 @n:disconnect;
+@n:ping;
 
 ## DATA ##
 
