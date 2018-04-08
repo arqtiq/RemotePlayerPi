@@ -31,6 +31,9 @@ namespace RemotePlayerPiApp
 		public partial class Attribute
 		{
 			
+			// aapt resource value: 0x7f010000
+			public const int type = 2130771968;
+			
 			static Attribute()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -63,8 +66,23 @@ namespace RemotePlayerPiApp
 			// aapt resource value: 0x7f050006
 			public const int connexionBtn = 2131034118;
 			
+			// aapt resource value: 0x7f05000a
+			public const int itemDescription = 2131034122;
+			
 			// aapt resource value: 0x7f050007
-			public const int rootText = 2131034119;
+			public const int itemIcon = 2131034119;
+			
+			// aapt resource value: 0x7f050009
+			public const int itemTitle = 2131034121;
+			
+			// aapt resource value: 0x7f050008
+			public const int linearLayout1 = 2131034120;
+			
+			// aapt resource value: 0x7f05000c
+			public const int listRoot = 2131034124;
+			
+			// aapt resource value: 0x7f05000b
+			public const int rootText = 2131034123;
 			
 			// aapt resource value: 0x7f050002
 			public const int serverIPinput = 2131034114;
@@ -101,7 +119,10 @@ namespace RemotePlayerPiApp
 			public const int Auth = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Main = 2130903041;
+			public const int item = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int Main = 2130903042;
 			
 			static Layout()
 			{
@@ -125,6 +146,25 @@ namespace RemotePlayerPiApp
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Styleable
+		{
+			
+			public static int[] ItemListView = new int[] {
+					2130771968};
+			
+			// aapt resource value: 0
+			public const int ItemListView_type = 0;
+			
+			static Styleable()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Styleable()
 			{
 			}
 		}

@@ -6,6 +6,7 @@ using System;
 using System.Threading.Tasks;
 using Android;
 using System.Collections.Generic;
+using Android.Content;
 
 namespace RemotePlayerPiApp
 {
@@ -34,6 +35,7 @@ namespace RemotePlayerPiApp
 
         private void connexionBtnClick(object sender, EventArgs e)
         {
+            Start();return;
             string ip = FindViewById<EditText>(Resource.Id.serverIPinput).Text;
             string port = FindViewById<EditText>(Resource.Id.serverPortInput).Text;
 
@@ -52,14 +54,21 @@ namespace RemotePlayerPiApp
                 return;
             }
 
-            Network.SendToServer("@n:connect;");
+            Network.SendToServer(Command.Factory.Network.GetConnect());
             connecting = true;
         }
 
         private void Start()
         {
+            var act = new Intent(this, typeof(MainActivity));
+
             StartActivity(typeof(MainActivity));
             Finish();
+        }
+
+        private void RequestDir()
+        {
+            SendRequest(Command.Factory.Data.GetHome());
         }
 
         private void HandlePermissions()
@@ -86,13 +95,17 @@ namespace RemotePlayerPiApp
         {
             if (!connecting)
                 return;
-
+            
             if (message == "0")
                 Toast.MakeText(ApplicationContext, "Server refused the connection", ToastLength.Long).Show();
             else if (message == "1")
             {
-                Toast.MakeText(ApplicationContext, "Server refused the connection", ToastLength.Short).Show();
+                Toast.MakeText(ApplicationContext, "Connected", ToastLength.Short).Show();
                 Start();
+            }
+            else if(Command.IsDir(message))
+            {
+
             }
         }
     }

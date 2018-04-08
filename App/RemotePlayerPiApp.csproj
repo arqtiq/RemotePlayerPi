@@ -61,7 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthActivity.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="ItemListView.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="MainView.cs" />
     <Compile Include="NetActivity.cs" />
     <Compile Include="Network.cs" />
     <Compile Include="Prefs.cs" />
@@ -70,6 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
+    <AndroidResource Include="Resources\layout\item.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\Main.axml">

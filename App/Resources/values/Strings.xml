@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ApplicationName">RemotePlayerPiApp</string>
+
+    <declare-styleable name="ItemListView">
+      <attr name="type" format="string" />
+    </declare-styleable>
+  
 </resources>
