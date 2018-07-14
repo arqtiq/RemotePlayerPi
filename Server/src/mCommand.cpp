@@ -137,6 +137,6 @@ FuncType mCommand::GetFuncTypeFromString(std::string& func)
 
 void mCommand::SendFolderDescription()
 {
-    string desc = "dir_desc:" + mData::Instance()->GetFolderDescription();
+    string desc = "dir:" + mData::Instance()->GetFolderDescription();
     mNet::Instance()->SendMessage(desc);
 }
